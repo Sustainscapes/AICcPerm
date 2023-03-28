@@ -14,6 +14,7 @@ Imports:
     dplyr,
     foreach,
     parallel,
-    purrr
+    purrr,
+    vegan
 URL: https://github.com/Sustainscapes/AICcPerm
 BugReports: https://github.com/Sustainscapes/AICcPerm/issues
