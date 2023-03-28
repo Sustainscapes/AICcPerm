@@ -15,10 +15,10 @@
 #'
 #' @examples
 #' make_models(vars = c("A, B, C, D"),
-#'             ncores = 2, Distance = "JaccardDistance")
+#'             ncores = 2, Distance = "Distance")
 #'
 
-make_models <- function(vars, ncores = 2, Distance = "JaccardDistance") {
+make_models <- function(vars, ncores = 2, Distance = "Distance") {
   AICc <- form <- j <- NULL
   # create list of variables to use for modeling
   vars <- unlist(strsplit(vars, "\\s*,\\s*"))

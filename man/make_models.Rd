@@ -4,7 +4,7 @@
 \alias{make_models}
 \title{Create models with different combinations of variables}
 \usage{
-make_models(vars, ncores = 2, Distance = "JaccardDistance")
+make_models(vars, ncores = 2, Distance = "Distance")
 }
 \arguments{
 \item{vars}{A character vector of variables to use for modeling}
@@ -21,6 +21,6 @@ Create models with different combinations of variables
 }
 \examples{
 make_models(vars = c("A, B, C, D"),
-            ncores = 2, Distance = "JaccardDistance")
+            ncores = 2, Distance = "Distance")
 
 }
