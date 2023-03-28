@@ -16,3 +16,5 @@ Imports:
     foreach,
     parallel,
     purrr
+URL: https://github.com/Sustainscapes/AICcPerm
+BugReports: https://github.com/Sustainscapes/AICcPerm/issues
