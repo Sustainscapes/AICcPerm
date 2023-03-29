@@ -3,6 +3,7 @@
 #' @param vars A character vector of variables to use for modeling
 #' @param ncores An integer specifying the number of cores to use for parallel processing
 #' @param Distance A character string specifying the type of distance to use
+#' @param k maximum number of variables in a model, default is NULL
 #' @return A data frame containing all the models and their AICc scores
 #'
 #' @importFrom parallel makeCluster
@@ -17,8 +18,11 @@
 #' make_models(vars = c("A, B, C, D"),
 #'             ncores = 2, Distance = "Distance")
 #'
+#' # using k as a way to limit number of variables
+#' make_models(vars = c("A, B, C, D"),
+#'             ncores = 2, Distance = "Distance", k = 2)
 
-make_models <- function(vars, ncores = 2, Distance = "Distance") {
+make_models <- function(vars, ncores = 2, Distance = "Distance", k = NULL) {
   AICc <- form <- j <- NULL
   # create list of variables to use for modeling
   vars <- unlist(strsplit(vars, "\\s*,\\s*"))
@@ -28,8 +32,16 @@ make_models <- function(vars, ncores = 2, Distance = "Distance") {
 
   forms <- list()
 
+  if(is.null(k)){
+    MaxVars <- length(vars)
+  }
+
+  if(!is.null(k)){
+    MaxVars <- k
+  }
+
   # loop over different numbers of variables to include in models
-  for(i in 1:length(vars)) {
+  for(i in 1:MaxVars) {
     test <- combn(vars, i, simplify = F)
     cl <- parallel::makeCluster(ncores)
     doParallel::registerDoParallel(cl)
@@ -43,7 +55,7 @@ make_models <- function(vars, ncores = 2, Distance = "Distance") {
       df
     }
     parallel::stopCluster(cl)
-    message(paste(i, "of", length(vars), "ready", Sys.time()))
+    message(paste(i, "of", MaxVars, "ready", Sys.time()))
     forms[[i]] <- formulas
   }
 

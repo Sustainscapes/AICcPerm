@@ -4,7 +4,7 @@
 \alias{make_models}
 \title{Create models with different combinations of variables}
 \usage{
-make_models(vars, ncores = 2, Distance = "Distance")
+make_models(vars, ncores = 2, Distance = "Distance", k = NULL)
 }
 \arguments{
 \item{vars}{A character vector of variables to use for modeling}
@@ -12,6 +12,8 @@ make_models(vars, ncores = 2, Distance = "Distance")
 \item{ncores}{An integer specifying the number of cores to use for parallel processing}
 
 \item{Distance}{A character string specifying the type of distance to use}
+
+\item{k}{maximum number of variables in a model, default is NULL}
 }
 \value{
 A data frame containing all the models and their AICc scores
@@ -23,4 +25,7 @@ Create models with different combinations of variables
 make_models(vars = c("A, B, C, D"),
             ncores = 2, Distance = "Distance")
 
+# using k as a way to limit number of variables
+make_models(vars = c("A, B, C, D"),
+            ncores = 2, Distance = "Distance", k = 2)
 }
