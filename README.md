@@ -23,21 +23,21 @@ function, just as in this example
 
 ``` r
 library(AICcPerm)
-AllModels <- make_models(vars = c("pH", "Sand", "Clay"), ncores = 2, Distance = "JaccardDistance")
+AllModels <- make_models(vars = c("pH", "Sand", "Clay"), ncores = 2, Distance = "Distance")
 ```
 
 This will give you the following table:
 
-| form                                | AICc | max_vif |
-|:------------------------------------|:-----|:--------|
-| JaccardDistance \~ pH               | NA   | NA      |
-| JaccardDistance \~ Sand             | NA   | NA      |
-| JaccardDistance \~ Clay             | NA   | NA      |
-| JaccardDistance \~ pH + Sand        | NA   | NA      |
-| JaccardDistance \~ pH + Clay        | NA   | NA      |
-| JaccardDistance \~ Sand + Clay      | NA   | NA      |
-| JaccardDistance \~ pH + Sand + Clay | NA   | NA      |
-| JaccardDistance \~ 1                | NA   | NA      |
+| form                         | AICc | max_vif |
+|:-----------------------------|:-----|:--------|
+| Distance \~ pH               | NA   | NA      |
+| Distance \~ Sand             | NA   | NA      |
+| Distance \~ Clay             | NA   | NA      |
+| Distance \~ pH + Sand        | NA   | NA      |
+| Distance \~ pH + Clay        | NA   | NA      |
+| Distance \~ Sand + Clay      | NA   | NA      |
+| Distance \~ pH + Sand + Clay | NA   | NA      |
+| Distance \~ 1                | NA   | NA      |
 
 Where you can see all possible models for tose 3 variables.
 
@@ -87,9 +87,9 @@ And then generate all possible models for 3 of the variables:
 
 ``` r
 AllModels <- make_models(vars = c("A1", "Moisture", "Manure"))
-#> 1 of 3 ready 2023-03-29 05:38:59
-#> 2 of 3 ready 2023-03-29 05:39:11
-#> 3 of 3 ready 2023-03-29 05:39:23
+#> 1 of 3 ready 2023-03-29 12:23:17
+#> 2 of 3 ready 2023-03-29 12:23:19
+#> 3 of 3 ready 2023-03-29 12:23:32
 ```
 
 We then get this table:
@@ -113,6 +113,8 @@ Fitted <- fit_models(all_forms = AllModels,
            env_data = dune.env,
            ncores = 4,
            method = "bray")
+#> Warning in e$fun(obj, substitute(ex), parent.frame(), e$data): already
+#> exporting variable(s): new_env_data
 ```
 
 Which results in the following table:

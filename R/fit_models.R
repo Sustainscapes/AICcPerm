@@ -48,14 +48,29 @@ fit_models <- function(all_forms,
   meta_data <- all_forms
   vegetation_data = veg_data
 
+  # Check for missing values
+  missing_rows <- !complete.cases(env_data)
+
+  if (any(missing_rows)) {
+    # Print message about missing rows and columns
+    message(sprintf("Removing %d rows with missing values\n", sum(missing_rows)))
+    message("Columns with missing values: ")
+    message(names(env_data)[colSums(is.na(env_data)) > 0], sep = ", ")
+
+  }
+
+  # Filter out missing rows
+  new_env_data <- env_data[complete.cases(env_data), ]
+
+
   cl <- parallel::makeCluster(ncores)
   doParallel::registerDoParallel(cl)
 
   Distance <- vegan::vegdist(vegetation_data, method = method)
 
-  Fs <- foreach(x = 1:nrow(meta_data), .packages = c("vegan", "dplyr", "AICcPerm", "tidyr", "broom"), .combine = bind_rows, .export = "Distance") %dopar% {
+  Fs <- foreach(x = 1:nrow(meta_data), .packages = c("vegan", "dplyr", "AICcPerm", "tidyr", "broom"), .combine = bind_rows, .export = c("Distance")) %dopar% {
 
-      Response = env_data
+      Response = new_env_data
       Response$y <- rnorm(n = nrow(Response))
       gc()
 
@@ -63,13 +78,34 @@ fit_models <- function(all_forms,
 
       Model <- try(vegan::adonis2(as.formula(Temp$form[1]), data = Response, by = "margin"))
 
-      Temp$AICc <-  try(AICcPerm::AICc_permanova2(Model)$AICc, silent = T)
-      Temp$max_vif <- VIF(lm(as.formula(stringr::str_replace_all(Temp$form[1], "Distance ", "y")), data = Response))
+      Temp$AICc <- tryCatch(
+        expr = AICcPerm::AICc_permanova2(Model)$AICc,
+        error = function(e) NA
+      )
 
-      Rs <- broom::tidy(Model) |>
-        dplyr::filter(!(term %in% c("Residual", "Total"))) |>
-        dplyr::select(term, R2) |>
-        tidyr::pivot_wider(names_from = term, values_from = R2)
+      Temp$max_vif <- tryCatch(
+        expr = VIF(lm(as.formula(stringr::str_replace_all(Temp$form[1], "Distance ", "y")), data = Response)),
+        error = function(e) NA
+      )
+
+      Rs <- tryCatch(
+        {
+          tidy_model <- broom::tidy(Model)
+          if (inherits(tidy_model, "try-error")) {
+            stop("Error occurred in broom::tidy(Model)")
+          }
+          tidy_model |>
+            dplyr::filter(!(term %in% c("Residual", "Total"))) |>
+            dplyr::select(term, R2) |>
+            tidyr::pivot_wider(names_from = term, values_from = R2)
+        },
+        error = function(e) {
+          message("Error: ", conditionMessage(e))
+          NULL
+        }
+      )
+
+
       if(log){
         if((x %% multiple) == 0){
           sink(logfile, append = T)
