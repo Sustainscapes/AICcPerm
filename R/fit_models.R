@@ -61,6 +61,7 @@ fit_models <- function(all_forms,
 
   # Filter out missing rows
   new_env_data <- env_data[complete.cases(env_data), ]
+  vegetation_data <- vegetation_data[complete.cases(env_data), ]
 
 
   cl <- parallel::makeCluster(ncores)
