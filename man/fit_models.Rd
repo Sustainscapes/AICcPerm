@@ -22,6 +22,8 @@ fit_models(
 
 \item{env_data}{A dataset with the variables described in all_froms}
 
+\item{method}{method for distance from \code{\link{vegdist}}}
+
 \item{ncores}{An integer specifying the number of cores to use for parallel processing}
 
 \item{log}{logical if true, a log file will be generated}

@@ -18,6 +18,7 @@ Imports:
     parallel,
     purrr,
     stats,
+    stringr,
     tidyr,
     vegan
 URL: https://github.com/Sustainscapes/AICcPerm

@@ -7,6 +7,7 @@
 #' @param log logical if true, a log file will be generated
 #' @param logfile the text file that will be generated as a log
 #' @param multiple after how many loops to write a log file
+#' @param method method for distance from \code{\link{vegdist}}
 #' @importFrom parallel makeCluster stopCluster
 #' @importFrom doParallel registerDoParallel
 #' @importFrom foreach foreach
@@ -14,6 +15,7 @@
 #' @importFrom dplyr bind_rows bind_cols select filter arrange
 #' @importFrom broom tidy
 #' @importFrom tidyr pivot_longer
+#' @importFrom stringr str_replace_all
 #' @importFrom stats rnorm lm as.formula
 #' @examples
 #'
@@ -36,6 +38,7 @@ fit_models <- function(all_forms,
                        log = T,
                        logfile = "log.txt",
                        multiple = 100){
+  AICc <- R2 <- term <- x <- NULL
   if(log){
     if(file.exists(logfile)){
       file.remove(logfile)
@@ -61,7 +64,7 @@ fit_models <- function(all_forms,
       Model <- try(vegan::adonis2(as.formula(Temp$form[1]), data = Response, by = "margin"))
 
       Temp$AICc <-  try(AICcPerm::AICc_permanova2(Model)$AICc, silent = T)
-      Temp$max_vif <- AICcPerm:::VIF(lm(as.formula(stringr::str_replace_all(Temp$form[1], "Distance ", "y")), data = Response))
+      Temp$max_vif <- VIF(lm(as.formula(stringr::str_replace_all(Temp$form[1], "Distance ", "y")), data = Response))
 
       Rs <- broom::tidy(Model) |>
         dplyr::filter(!(term %in% c("Residual", "Total"))) |>

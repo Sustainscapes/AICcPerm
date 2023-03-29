@@ -65,3 +65,42 @@ This is shown in the following table
 knitr::kable(Table_permanova)
 ```
 
+## Full example
+
+We will show the last function called `fit_models`, we will start by using the datasets from the vegan package:
+
+```{r}
+library(vegan)
+data(dune)
+data(dune.env)
+```
+
+And then generate all possible models for 3 of the variables:
+
+```{r, results='hide'}
+AllModels <- make_models(vars = c("A1", "Moisture", "Manure"))
+```
+
+We then get this table:
+
+```{r, echo=FALSE}
+knitr::kable(AllModels)
+```
+
+After this, we make a model selection by fitting all possible models:
+
+```{r}
+Fitted <- fit_models(all_forms = AllModels,
+           veg_data = dune,
+           env_data = dune.env,
+           ncores = 4,
+           method = "bray")
+```
+
+Which results in the following table:
+
+```{r}
+knitr::kable(Fitted)
+```
+
+
