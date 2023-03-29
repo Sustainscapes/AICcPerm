@@ -2,7 +2,6 @@
 #'
 #' @param vars A character vector of variables to use for modeling
 #' @param ncores An integer specifying the number of cores to use for parallel processing
-#' @param Distance A character string specifying the type of distance to use
 #' @param k maximum number of variables in a model, default is NULL
 #' @return A data frame containing all the models and their AICc scores
 #'
@@ -15,20 +14,20 @@
 #' @export
 #'
 #' @examples
-#' make_models(vars = c("A, B, C, D"),
-#'             ncores = 2, Distance = "Distance")
+#' make_models(vars = c("A", "B", "C", "D"),
+#'             ncores = 2)
 #'
 #' # using k as a way to limit number of variables
-#' make_models(vars = c("A, B, C, D"),
-#'             ncores = 2, Distance = "Distance", k = 2)
+#' make_models(vars = c("A", "B", "C", "D"),
+#'             ncores = 2, k = 2)
 
-make_models <- function(vars, ncores = 2, Distance = "Distance", k = NULL) {
+make_models <- function(vars, ncores = 2, k = NULL) {
   AICc <- form <- j <- NULL
   # create list of variables to use for modeling
   vars <- unlist(strsplit(vars, "\\s*,\\s*"))
 
   # set response and dataset variables
-  dataset <- Distance
+  dataset <- "Distance"
 
   forms <- list()
 

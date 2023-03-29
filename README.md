@@ -23,7 +23,7 @@ function, just as in this example
 
 ``` r
 library(AICcPerm)
-AllModels <- make_models(vars = c("pH", "Sand", "Clay"), ncores = 2, Distance = "Distance")
+AllModels <- make_models(vars = c("pH", "Sand", "Clay"), ncores = 2)
 ```
 
 This will give you the following table:
@@ -87,9 +87,9 @@ And then generate all possible models for 3 of the variables:
 
 ``` r
 AllModels <- make_models(vars = c("A1", "Moisture", "Manure"))
-#> 1 of 3 ready 2023-03-29 12:23:17
-#> 2 of 3 ready 2023-03-29 12:23:19
-#> 3 of 3 ready 2023-03-29 12:23:32
+#> 1 of 3 ready 2023-03-29 16:22:58
+#> 2 of 3 ready 2023-03-29 16:23:01
+#> 3 of 3 ready 2023-03-29 16:23:04
 ```
 
 We then get this table:
@@ -113,8 +113,6 @@ Fitted <- fit_models(all_forms = AllModels,
            env_data = dune.env,
            ncores = 4,
            method = "bray")
-#> Warning in e$fun(obj, substitute(ex), parent.frame(), e$data): already
-#> exporting variable(s): new_env_data
 ```
 
 Which results in the following table:

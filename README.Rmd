@@ -30,7 +30,7 @@ For the generation of all possible models you can use the `make_models` function
 
 ```{r examplemakemodels, results='hide', message=FALSE}
 library(AICcPerm)
-AllModels <- make_models(vars = c("pH", "Sand", "Clay"), ncores = 2, Distance = "Distance")
+AllModels <- make_models(vars = c("pH", "Sand", "Clay"), ncores = 2)
 ```
 
 This will give you the following table:

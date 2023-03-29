@@ -16,7 +16,7 @@
 #' @importFrom broom tidy
 #' @importFrom tidyr pivot_longer
 #' @importFrom stringr str_replace_all
-#' @importFrom stats rnorm lm as.formula
+#' @importFrom stats rnorm lm as.formula complete.cases
 #' @examples
 #'
 #' library(vegan)
