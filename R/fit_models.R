@@ -10,7 +10,7 @@
 #' @param method method for distance from \code{\link{vegdist}}
 #' @importFrom parallel makeCluster stopCluster
 #' @importFrom doParallel registerDoParallel
-#' @importFrom foreach foreach
+#' @importFrom foreach foreach %dopar%
 #' @importFrom vegan vegdist adonis2
 #' @importFrom dplyr bind_rows bind_cols select filter arrange
 #' @importFrom broom tidy

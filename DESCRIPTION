@@ -12,9 +12,12 @@ RoxygenNote: 7.2.3
 Imports: 
     broom,
     car,
+    data.table,
     doParallel,
     dplyr,
     foreach,
+    furrr,
+    future,
     parallel,
     purrr,
     stats,

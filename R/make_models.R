@@ -7,10 +7,12 @@
 #'
 #' @importFrom parallel makeCluster
 #' @importFrom doParallel registerDoParallel
-#' @importFrom foreach foreach %dopar%
-#' @importFrom purrr reduce
-#' @importFrom dplyr bind_rows distinct mutate
 #' @importFrom utils combn
+#' @importFrom data.table data.table
+#' @importFrom data.table rbindlist
+#' @importFrom data.table :=
+#' @importFrom future plan cluster
+#' @importFrom furrr future_map_dfr
 #' @export
 #'
 #' @examples
@@ -22,9 +24,11 @@
 #'             ncores = 2, k = 2)
 
 make_models <- function(vars, ncores = 2, k = NULL) {
-  AICc <- form <- j <- NULL
-  # create list of variables to use for modeling
+  max_vif <- NULL
+
+  # create data table of variables to use for modeling
   vars <- unlist(strsplit(vars, "\\s*,\\s*"))
+  dt <- data.table::data.table(vars)
 
   # set response and dataset variables
   dataset <- "Distance"
@@ -41,31 +45,27 @@ make_models <- function(vars, ncores = 2, k = NULL) {
 
   # loop over different numbers of variables to include in models
   for(i in 1:MaxVars) {
-    test <- combn(vars, i, simplify = F)
+    test <- combn(vars, i, simplify = FALSE)
     cl <- parallel::makeCluster(ncores)
-    doParallel::registerDoParallel(cl)
+    future::plan(future::cluster, workers = cl)
 
     # loop over all combinations of variables and create a list of formulas
-    formulas <- foreach::foreach(j = 1:length(test), .combine = "rbind", .packages = c("dplyr")) %dopar% {
-      df <- data.frame(form = NA, AICc = NA)
-      temp <- paste(dataset, "~", paste(test[[j]], collapse = " + "))
-      df$form <- temp
-      gc()
-      df
-    }
+    formulas <- furrr::future_map_dfr(test, function(x) {
+      form <- paste(dataset, "~", paste(x, collapse = " + "))
+      data.frame(form = form, AICc = NA_real_, stringsAsFactors = FALSE)
+    })
     parallel::stopCluster(cl)
     message(paste(i, "of", MaxVars, "ready", Sys.time()))
     forms[[i]] <- formulas
   }
 
-  # combine all formulas into a single data frame and add the null model
-  all_forms <- forms |>
-    purrr::reduce(dplyr::bind_rows) |>
-    dplyr::distinct(form, AICc, .keep_all = T) |>
-    dplyr::mutate(max_vif = NA)
-  null_mod <- data.frame(form = paste(dataset, "~ 1", collapse = ""), AICc = NA) |>
-    dplyr::mutate(max_vif = NA)
-  all_forms <- all_forms |>  bind_rows(null_mod)
+  # combine all formulas into a single data table and add the null model
+  all_forms <- data.table::rbindlist(forms, use.names = TRUE, fill = TRUE)
+  all_forms <- unique(all_forms, by = "form", fromLast = TRUE)
+  all_forms[, max_vif := NA_real_]
+  null_mod <- data.table::data.table(form = paste(dataset, "~ 1", collapse = ""), AICc = NA_real_, max_vif = NA_real_)
+  all_forms <- data.table::rbindlist(list(all_forms, null_mod), use.names = TRUE, fill = TRUE)
 
-  return(all_forms)
+  return(as.data.frame(all_forms))
 }
+
