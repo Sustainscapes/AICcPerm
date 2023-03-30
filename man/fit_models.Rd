@@ -12,7 +12,8 @@ fit_models(
   ncores = 2,
   log = T,
   logfile = "log.txt",
-  multiple = 100
+  multiple = 100,
+  strata = NULL
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ fit_models(
 \item{logfile}{the text file that will be generated as a log}
 
 \item{multiple}{after how many loops to write a log file}
+
+\item{strata}{a block variable similar to the use in \code{\link{adonis2}}}
 }
 \description{
 Fit permanova models and arrange by AICc

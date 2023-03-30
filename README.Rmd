@@ -99,8 +99,25 @@ Fitted <- fit_models(all_forms = AllModels,
 
 Which results in the following table:
 
-```{r}
+```{r, echo=FALSE}
 knitr::kable(Fitted)
+```
+
+If there is a block variable to be used, for example `Management` in the `dune.env` object, you can change the above code by using the `strata` argument:
+
+```{r fitwihtstrata}
+Fitted2 <- fit_models(all_forms = AllModels,
+           veg_data = dune,
+           env_data = dune.env,
+           ncores = 4,
+           method = "bray",
+           strata = "Management")
+```
+
+Which results in the following table:
+
+```{r, echo=FALSE}
+knitr::kable(Fitted2)
 ```
 
 

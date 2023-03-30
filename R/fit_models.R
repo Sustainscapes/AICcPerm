@@ -8,6 +8,7 @@
 #' @param logfile the text file that will be generated as a log
 #' @param multiple after how many loops to write a log file
 #' @param method method for distance from \code{\link{vegdist}}
+#' @param strata a block variable similar to the use in \code{\link{adonis2}}
 #' @importFrom parallel makeCluster stopCluster
 #' @importFrom doParallel registerDoParallel
 #' @importFrom foreach foreach %dopar%
@@ -37,7 +38,8 @@ fit_models <- function(all_forms,
                        ncores = 2,
                        log = T,
                        logfile = "log.txt",
-                       multiple = 100){
+                       multiple = 100,
+                       strata = NULL){
   AICc <- R2 <- term <- x <- NULL
   if(log){
     if(file.exists(logfile)){
@@ -77,7 +79,17 @@ fit_models <- function(all_forms,
 
       Temp <- meta_data[x,]
 
-      Model <- try(vegan::adonis2(as.formula(Temp$form[1]), data = Response, by = "margin"))
+      if(is.null(strata)){
+        Model <- try(vegan::adonis2(as.formula(Temp$form[1]), data = Response, by = "margin"))
+      }
+
+      if(!is.null(strata)){
+        # Convert strata variable to factor
+        strata_factor <- factor(Response[[strata]])
+        Model <- try(with(Response, vegan::adonis2(as.formula(Temp$form[1]), data = Response, by = "margin", strata = strata_factor)), silent = T)
+      }
+
+
 
       Temp$AICc <- tryCatch(
         expr = AICcPerm::AICc_permanova2(Model)$AICc,
