@@ -22,22 +22,22 @@ For the generation of all possible models you can use the `make_models`
 function, just as in this example
 
 ``` r
-library(AICcPerm)
+library(AICcPermanova)
 AllModels <- make_models(vars = c("pH", "Sand", "Clay"), ncores = 2)
 ```
 
 This will give you the following table:
 
-| form                         | AICc | max_vif |
-|:-----------------------------|-----:|--------:|
-| Distance \~ pH               |   NA |      NA |
-| Distance \~ Sand             |   NA |      NA |
-| Distance \~ Clay             |   NA |      NA |
-| Distance \~ pH + Sand        |   NA |      NA |
-| Distance \~ pH + Clay        |   NA |      NA |
-| Distance \~ Sand + Clay      |   NA |      NA |
-| Distance \~ pH + Sand + Clay |   NA |      NA |
-| Distance \~ 1                |   NA |      NA |
+| form                         |
+|:-----------------------------|
+| Distance \~ pH               |
+| Distance \~ Sand             |
+| Distance \~ Clay             |
+| Distance \~ pH + Sand        |
+| Distance \~ pH + Clay        |
+| Distance \~ Sand + Clay      |
+| Distance \~ pH + Sand + Clay |
+| Distance \~ 1                |
 
 Where you can see all possible models for tose 3 variables.
 
@@ -87,23 +87,23 @@ And then generate all possible models for 3 of the variables:
 
 ``` r
 AllModels <- make_models(vars = c("A1", "Moisture", "Manure"))
-#> 1 of 3 ready 2023-03-30 11:21:51
-#> 2 of 3 ready 2023-03-30 11:21:56
-#> 3 of 3 ready 2023-03-30 11:21:58
+#> 1 of 3 ready 2023-04-01 20:24:30
+#> 2 of 3 ready 2023-04-01 20:24:33
+#> 3 of 3 ready 2023-04-01 20:24:35
 ```
 
 We then get this table:
 
-| form                               | AICc | max_vif |
-|:-----------------------------------|-----:|--------:|
-| Distance \~ A1                     |   NA |      NA |
-| Distance \~ Moisture               |   NA |      NA |
-| Distance \~ Manure                 |   NA |      NA |
-| Distance \~ A1 + Moisture          |   NA |      NA |
-| Distance \~ A1 + Manure            |   NA |      NA |
-| Distance \~ Moisture + Manure      |   NA |      NA |
-| Distance \~ A1 + Moisture + Manure |   NA |      NA |
-| Distance \~ 1                      |   NA |      NA |
+| form                               |
+|:-----------------------------------|
+| Distance \~ A1                     |
+| Distance \~ Moisture               |
+| Distance \~ Manure                 |
+| Distance \~ A1 + Moisture          |
+| Distance \~ A1 + Manure            |
+| Distance \~ Moisture + Manure      |
+| Distance \~ A1 + Moisture + Manure |
+| Distance \~ 1                      |
 
 After this, we make a model selection by fitting all possible models:
 

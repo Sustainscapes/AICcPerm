@@ -1,9 +1,17 @@
-#' Create models with different combinations of variables
-#'
+#' @title Create models with different combinations of variables
+#' @description Generates all possible linear models for a given set of
+#' predictor variables using the distance matrix as a response variable.
+#' The function allows for the user to specify the maximum number of
+#' variables in a model, which can be useful in cases where there are
+#' many predictors. The output is a data frame containing all the
+#' possible models, which can be passed to the fit_models function for
+#' fitting using a PERMANOVA approach.
 #' @param vars A character vector of variables to use for modeling
 #' @param ncores An integer specifying the number of cores to use for parallel processing
 #' @param k maximum number of variables in a model, default is NULL
-#' @return A data frame containing all the models and their AICc scores
+#' @param verbose logical, defaults TRUE, sends messages about processing times
+#' @return A data frame containing all the possible linear permanova
+#' models
 #'
 #' @importFrom parallel makeCluster
 #' @importFrom doParallel registerDoParallel
@@ -16,14 +24,18 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' make_models(vars = c("A", "B", "C", "D"),
-#'             ncores = 2)
+#'             ncores = 2, verbose = FALSE)
 #'
 #' # using k as a way to limit number of variables
 #' make_models(vars = c("A", "B", "C", "D"),
-#'             ncores = 2, k = 2)
+#'             ncores = 2, k = 2, verbose = FALSE)
+#'}
+#' @references
+#' Anderson, M. J. (2001). A new method for non-parametric multivariate analysis of variance. Austral Ecology, 26(1), 32-46.
 
-make_models <- function(vars, ncores = 2, k = NULL) {
+make_models <- function(vars, ncores = 2, k = NULL, verbose = TRUE) {
   max_vif <- NULL
 
   # create data table of variables to use for modeling
@@ -52,18 +64,19 @@ make_models <- function(vars, ncores = 2, k = NULL) {
     # loop over all combinations of variables and create a list of formulas
     formulas <- furrr::future_map_dfr(test, function(x) {
       form <- paste(dataset, "~", paste(x, collapse = " + "))
-      data.frame(form = form, AICc = NA_real_, stringsAsFactors = FALSE)
+      data.frame(form = form, stringsAsFactors = FALSE)
     })
     parallel::stopCluster(cl)
-    message(paste(i, "of", MaxVars, "ready", Sys.time()))
+    if(verbose){
+      message(paste(i, "of", MaxVars, "ready", Sys.time()))
+    }
     forms[[i]] <- formulas
   }
 
   # combine all formulas into a single data table and add the null model
   all_forms <- data.table::rbindlist(forms, use.names = TRUE, fill = TRUE)
   all_forms <- unique(all_forms, by = "form", fromLast = TRUE)
-  all_forms[, max_vif := NA_real_]
-  null_mod <- data.table::data.table(form = paste(dataset, "~ 1", collapse = ""), AICc = NA_real_, max_vif = NA_real_)
+  null_mod <- data.table::data.table(form = paste(dataset, "~ 1", collapse = ""))
   all_forms <- data.table::rbindlist(list(all_forms, null_mod), use.names = TRUE, fill = TRUE)
 
   return(as.data.frame(all_forms))

@@ -2,7 +2,7 @@
 % Please edit documentation in R/fit_models.R
 \name{fit_models}
 \alias{fit_models}
-\title{Fit permanova models and arrange by AICc}
+\title{Fit PERMANOVA models and arrange by AICc}
 \usage{
 fit_models(
   all_forms,
@@ -35,11 +35,16 @@ fit_models(
 
 \item{strata}{a block variable similar to the use in \code{\link{adonis2}}}
 }
+\value{
+A data.frame with fitted models arranged by AICc, including the formula used, the number of
+explanatory variables, R2, adjusted R2, and the AICc and max VIF.
+}
 \description{
-Fit permanova models and arrange by AICc
+This function fits PERMANOVA models for all combinations of variables in a given dataset, and arranges the models by Akaike Information Criterion (AICc) score. The function also calculates the maximum variance inflation factor (max_vif) for each model.
 }
 \examples{
 
+\dontrun{
 library(vegan)
 data(dune)
 data(dune.env)
@@ -49,4 +54,10 @@ AllModels <- make_models(vars = c("A1", "Moisture", "Manure"))
 fit_models(all_forms = AllModels,
            veg_data = dune,
            env_data = dune.env)
+}
+
+}
+\references{
+Anderson, M. J. (2001). A new method for non-parametric multivariate analysis of variance. Austral Ecology, 26(1), 32-46.
+https://doi.org/10.1111/j.1442-9993.2001.01070.pp.x
 }

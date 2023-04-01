@@ -1,6 +1,6 @@
 #' Calculate AICc for a permutational multivariate analysis of variance (PERMANOVA)
 #'
-#' This function calculates the Akaike's Information Criterion (AICc) for a permutational multivariate analysis of variance (PERMANOVA) model.
+#' @description #' This function calculates the Akaike's Information Criterion (AICc) for a permutational multivariate analysis of variance (PERMANOVA) model. The AICc is a modified version of the Akaike Information Criterion (AIC) that is more appropriate for small sample sizes and high-dimensional models.
 #'
 #' @param adonis2_model An object of class adonis2 from the vegan package
 #'
@@ -18,6 +18,13 @@
 #'
 #' # Calculate AICc
 #' AICc_permanova2(Model)
+#'
+#' @details
+#' The AICc calculation for a PERMANOVA model is:
+#'
+#' \deqn{AICc = AIC + \frac{2k(k+1)}{n-k-1}}{AICc = AIC + (2k(k+1))/(n-k-1)}
+#'
+#' where AIC is the Akaike Information Criterion, k is the number of parameters in the model (excluding the intercept), and n is the number of observations.
 #'
 #' @export
 #'

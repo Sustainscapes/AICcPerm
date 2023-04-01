@@ -29,7 +29,7 @@ remotes::install_github("Sustainscapes/AICcPerm")
 For the generation of all possible models you can use the `make_models` function, just as in this example
 
 ```{r examplemakemodels, results='hide', message=FALSE}
-library(AICcPerm)
+library(AICcPermanova)
 AllModels <- make_models(vars = c("pH", "Sand", "Clay"), ncores = 2)
 ```
 
