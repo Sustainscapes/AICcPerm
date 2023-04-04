@@ -27,5 +27,3 @@ A VIF of 5 or greater is often considered high, indicating a strong presence of 
 }
 }
 \keyword{collinearity}
-\keyword{models,}
-\keyword{regression,}

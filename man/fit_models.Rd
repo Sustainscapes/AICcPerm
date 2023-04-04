@@ -10,7 +10,7 @@ fit_models(
   env_data,
   method = "bray",
   ncores = 2,
-  log = T,
+  log = TRUE,
   logfile = "log.txt",
   multiple = 100,
   strata = NULL
@@ -34,6 +34,8 @@ fit_models(
 \item{multiple}{after how many loops to write a log file}
 
 \item{strata}{a block variable similar to the use in \code{\link{adonis2}}}
+
+\item{verbose}{logical, defaults TRUE, sends messages about processing times}
 }
 \value{
 A data.frame with fitted models arranged by AICc, including the formula used, the number of
@@ -44,7 +46,7 @@ This function fits PERMANOVA models for all combinations of variables in a given
 }
 \examples{
 
-\dontrun{
+\donttest{
 library(vegan)
 data(dune)
 data(dune.env)

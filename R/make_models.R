@@ -24,7 +24,7 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' make_models(vars = c("A", "B", "C", "D"),
 #'             ncores = 2, verbose = FALSE)
 #'

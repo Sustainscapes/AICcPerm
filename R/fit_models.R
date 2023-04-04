@@ -7,6 +7,7 @@
 #' @param env_data A dataset with the variables described in all_froms
 #' @param ncores An integer specifying the number of cores to use for parallel processing
 #' @param log logical if true, a log file will be generated
+#' @param verbose logical, defaults TRUE, sends messages about processing times
 #' @param logfile the text file that will be generated as a log
 #' @param multiple after how many loops to write a log file
 #' @param method method for distance from \code{\link{vegdist}}
@@ -27,7 +28,7 @@
 #' @importFrom stats rnorm lm as.formula complete.cases
 #' @examples
 #'
-#' \dontrun{
+#' \donttest{
 #' library(vegan)
 #' data(dune)
 #' data(dune.env)
@@ -51,7 +52,7 @@ fit_models <- function(all_forms,
                        env_data,
                        method = "bray",
                        ncores = 2,
-                       log = T,
+                       log = TRUE,
                        logfile = "log.txt",
                        multiple = 100,
                        strata = NULL){
@@ -71,11 +72,12 @@ fit_models <- function(all_forms,
   missing_rows <- !complete.cases(env_data)
 
   if (any(missing_rows)) {
-    # Print message about missing rows and columns
-    message(sprintf("Removing %d rows with missing values\n", sum(missing_rows)))
-    message("Columns with missing values: ")
-    message(names(env_data)[colSums(is.na(env_data)) > 0], sep = ", ")
-
+    if(verbose){
+      # Print message about missing rows and columns
+      message(sprintf("Removing %d rows with missing values\n", sum(missing_rows)))
+      message("Columns with missing values: ")
+      message(names(env_data)[colSums(is.na(env_data)) > 0], sep = ", ")
+    }
   }
 
   # Filter out missing rows
@@ -103,7 +105,7 @@ fit_models <- function(all_forms,
       if(!is.null(strata)){
         # Convert strata variable to factor
         strata_factor <- factor(Response[[strata]])
-        Model <- try(with(Response, vegan::adonis2(as.formula(Temp$form[1]), data = Response, by = "margin", strata = strata_factor)), silent = T)
+        Model <- try(with(Response, vegan::adonis2(as.formula(Temp$form[1]), data = Response, by = "margin", strata = strata_factor)), silent = TRUE)
       }
 
 
@@ -138,7 +140,7 @@ fit_models <- function(all_forms,
 
       if(log){
         if((x %% multiple) == 0){
-          sink(logfile, append = T)
+          sink(logfile, append = TRUE)
           cat(paste("finished", x, "number of models", Sys.time(), "of",  nrow(meta_data)))
           cat("\n")
           sink()
@@ -174,7 +176,7 @@ fit_models <- function(all_forms,
 #'
 #' @importFrom car vif
 #'
-#' @keywords models, regression, collinearity
+#' @keywords collinearity
 #'
 #' @export
 

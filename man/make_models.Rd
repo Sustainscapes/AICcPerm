@@ -29,7 +29,7 @@ possible models, which can be passed to the fit_models function for
 fitting using a PERMANOVA approach.
 }
 \examples{
-\dontrun{
+\donttest{
 make_models(vars = c("A", "B", "C", "D"),
             ncores = 2, verbose = FALSE)
 
