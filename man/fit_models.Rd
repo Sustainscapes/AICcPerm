@@ -13,7 +13,8 @@ fit_models(
   log = TRUE,
   logfile = "log.txt",
   multiple = 100,
-  strata = NULL
+  strata = NULL,
+  verbose = FALSE
 )
 }
 \arguments{

@@ -55,7 +55,8 @@ fit_models <- function(all_forms,
                        log = TRUE,
                        logfile = "log.txt",
                        multiple = 100,
-                       strata = NULL){
+                       strata = NULL,
+                       verbose = FALSE){
   AICc <- R2 <- term <- x <- NULL
   if(log){
     if(file.exists(logfile)){
