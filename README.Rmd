@@ -15,6 +15,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/Sustainscapes/AICcPerm/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Sustainscapes/AICcPerm/actions/workflows/R-CMD-check.yaml)
+[![CRAN status](https://www.r-pkg.org/badges/version/AICcPermanova)](https://CRAN.R-project.org/package=AICcPermanova)
 <!-- badges: end -->
 
 The goal of AICcPerm is to generate an R package that does model selection for Permanovas from the vegan packages, to install this package you can use the remotes package and intall it as this:

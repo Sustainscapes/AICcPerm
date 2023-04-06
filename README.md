@@ -6,6 +6,8 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/Sustainscapes/AICcPerm/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Sustainscapes/AICcPerm/actions/workflows/R-CMD-check.yaml)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/AICcPermanova)](https://CRAN.R-project.org/package=AICcPermanova)
 <!-- badges: end -->
 
 The goal of AICcPerm is to generate an R package that does model
@@ -87,9 +89,9 @@ And then generate all possible models for 3 of the variables:
 
 ``` r
 AllModels <- make_models(vars = c("A1", "Moisture", "Manure"))
-#> 1 of 3 ready 2023-04-01 20:24:30
-#> 2 of 3 ready 2023-04-01 20:24:33
-#> 3 of 3 ready 2023-04-01 20:24:35
+#> 1 of 3 ready 2023-04-06 07:29:06
+#> 2 of 3 ready 2023-04-06 07:29:11
+#> 3 of 3 ready 2023-04-06 07:29:14
 ```
 
 We then get this table:
