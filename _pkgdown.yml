@@ -1,5 +1,4 @@
-url: ~
-baseurl: /AICcPermanova
+url: https://sustainscapes.github.io/AICcPermanova/
 template:
   bootstrap: 5
 

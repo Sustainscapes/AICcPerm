@@ -31,5 +31,6 @@ Imports:
     stringr,
     tidyr,
     vegan
-URL: https://github.com/Sustainscapes/AICcPerm
+URL: https://github.com/Sustainscapes/AICcPerm,
+    https://sustainscapes.github.io/AICcPerm/
 BugReports: https://github.com/Sustainscapes/AICcPerm/issues
