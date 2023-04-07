@@ -168,9 +168,9 @@
 <p>And then generate all possible models for 3 of the variables:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">AllModels</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/make_models.html">make_models</a></span><span class="op">(</span>vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A1"</span>, <span class="st">"Moisture"</span>, <span class="st">"Manure"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 1 of 3 ready 2023-04-07 06:02:47</span></span>
-<span><span class="co">#&gt; 2 of 3 ready 2023-04-07 06:02:53</span></span>
-<span><span class="co">#&gt; 3 of 3 ready 2023-04-07 06:02:56</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 of 3 ready 2023-04-07 09:15:53</span></span>
+<span><span class="co">#&gt; 2 of 3 ready 2023-04-07 09:15:58</span></span>
+<span><span class="co">#&gt; 3 of 3 ready 2023-04-07 09:16:00</span></span></code></pre></div>
 <p>We then get this table:</p>
 <table class="table">
 <thead><tr class="header">
@@ -417,21 +417,55 @@
 <code class="sourceCode R"><span><span class="va">Selected</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/select_models.html">select_models</a></span><span class="op">(</span><span class="va">Fitted2</span><span class="op">)</span></span></code></pre></div>
 <p>which results in the following table:</p>
 <table class="table">
+<colgroup>
+<col width="24%">
+<col width="12%">
+<col width="10%">
+<col width="12%">
+<col width="12%">
+<col width="8%">
+<col width="7%">
+<col width="12%">
+</colgroup>
 <thead><tr class="header">
+<th align="left">form</th>
 <th align="right">AICc</th>
+<th align="right">max_vif</th>
+<th align="right">A1</th>
+<th align="right">Moisture</th>
+<th align="right">Manure</th>
+<th align="right">Model</th>
 <th align="right">DeltaAICc</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
+<td align="left">Distance ~ Moisture</td>
 <td align="right">-30.36319</td>
+<td align="right">0</td>
+<td align="right">NA</td>
+<td align="right">0.4019903</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">0.0000000</td>
 </tr>
 <tr class="even">
+<td align="left">Distance ~ A1</td>
 <td align="right">-29.72347</td>
+<td align="right">0</td>
+<td align="right">0.1681666</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">0.6397207</td>
 </tr>
 <tr class="odd">
+<td align="left">Distance ~ 1</td>
 <td align="right">-28.52467</td>
+<td align="right">0</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">0</td>
 <td align="right">1.8385219</td>
 </tr>
 </tbody>
