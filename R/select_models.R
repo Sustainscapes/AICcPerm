@@ -15,7 +15,7 @@
 select_models <- function(df, delta_aicc = 2){
   AICc <- DeltaAICc <- max_vif <- NULL
   Result <- data.table::setDT(df)[AICc > -Inf & max_vif <= 5,
-                      DeltaAICc := AICc - min(AICc)][DeltaAICc <= delta_aicc,                                       .SD, .SDcols = c("AICc", "DeltaAICc")] |>
+                      DeltaAICc := AICc - min(AICc)][DeltaAICc <= delta_aicc] |>
     as.data.frame()
   return(Result)
 }

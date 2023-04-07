@@ -89,9 +89,9 @@ And then generate all possible models for 3 of the variables:
 
 ``` r
 AllModels <- make_models(vars = c("A1", "Moisture", "Manure"))
-#> 1 of 3 ready 2023-04-07 06:02:47
-#> 2 of 3 ready 2023-04-07 06:02:53
-#> 3 of 3 ready 2023-04-07 06:02:56
+#> 1 of 3 ready 2023-04-07 09:15:53
+#> 2 of 3 ready 2023-04-07 09:15:58
+#> 3 of 3 ready 2023-04-07 09:16:00
 ```
 
 We then get this table:
@@ -169,8 +169,8 @@ Selected <- select_models(Fitted2)
 
 which results in the following table:
 
-|      AICc | DeltaAICc |
-|----------:|----------:|
-| -30.36319 | 0.0000000 |
-| -29.72347 | 0.6397207 |
-| -28.52467 | 1.8385219 |
+| form                 |      AICc | max_vif |        A1 |  Moisture | Manure | Model | DeltaAICc |
+|:---------------------|----------:|--------:|----------:|----------:|-------:|------:|----------:|
+| Distance \~ Moisture | -30.36319 |       0 |        NA | 0.4019903 |     NA |    NA | 0.0000000 |
+| Distance \~ A1       | -29.72347 |       0 | 0.1681666 |        NA |     NA |    NA | 0.6397207 |
+| Distance \~ 1        | -28.52467 |       0 |        NA |        NA |     NA |     0 | 1.8385219 |
