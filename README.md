@@ -89,9 +89,9 @@ And then generate all possible models for 3 of the variables:
 
 ``` r
 AllModels <- make_models(vars = c("A1", "Moisture", "Manure"))
-#> 1 of 3 ready 2023-04-06 07:29:06
-#> 2 of 3 ready 2023-04-06 07:29:11
-#> 3 of 3 ready 2023-04-06 07:29:14
+#> 1 of 3 ready 2023-04-07 06:02:47
+#> 2 of 3 ready 2023-04-07 06:02:53
+#> 3 of 3 ready 2023-04-07 06:02:56
 ```
 
 We then get this table:
@@ -155,3 +155,22 @@ Which results in the following table:
 | Distance \~ A1 + Manure            | -25.18745 | 4.000000 | 0.1209209 |        NA | 0.3072258 |    NA |
 | Distance \~ Moisture + Manure      | -22.93984 | 4.000000 |        NA | 0.3005223 | 0.2530035 |    NA |
 | Distance \~ A1 + Moisture + Manure | -18.59078 | 4.508169 | 0.0414517 | 0.2210532 | 0.2521518 |    NA |
+
+## Selecting models
+
+In order to select models we use the function `select_models` which will
+select models with a max VIF of less than 5 and a delta AICc of less
+than a parameter called delta_aicc which defaults to 2 if we use the
+last model we used in the section above that would get us to:
+
+``` r
+Selected <- select_models(Fitted2)
+```
+
+which results in the following table:
+
+|      AICc | DeltaAICc |
+|----------:|----------:|
+| -30.36319 | 0.0000000 |
+| -29.72347 | 0.6397207 |
+| -28.52467 | 1.8385219 |

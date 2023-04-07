@@ -121,4 +121,18 @@ Which results in the following table:
 knitr::kable(Fitted2)
 ```
 
+## Selecting models
+
+In order to select models we use the function `select_models` which will select models with a max VIF of less than 5 and a delta AICc of less than a parameter called delta_aicc which defaults to 2 if we use the last model we used in the section above that would get us to:
+
+```{r selected}
+Selected <- select_models(Fitted2)
+```
+
+which results in the following table:
+
+```{r tableselected, echo = FALSE}
+knitr::kable(Selected)
+```
+
 
