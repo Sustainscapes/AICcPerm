@@ -34,3 +34,6 @@ Imports:
 URL: https://github.com/Sustainscapes/AICcPerm,
     https://sustainscapes.github.io/AICcPerm/
 BugReports: https://github.com/Sustainscapes/AICcPerm/issues
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
