@@ -1,16 +1,15 @@
 library(vegan)
-
 # Test that the function runs without errors
 test_that("filter_vif runs without errors", {
   # Generate some test data
   data(dune)
   data(dune.env)
-  AllModels <- make_models(vars = c("A1", "Moisture", "Manure"))
+  AllModels <- make_models(vars = c("A1", "Moisture", "Manure"), ncores = 1)
 
   # Call the function
   res <- filter_vif(all_forms = AllModels,
                     env_data = dune.env,
-                    ncores = 2,
+                    ncores = 1,
                     filter = TRUE,
                     verbose = FALSE)
 
@@ -28,7 +27,7 @@ test_that("filter_vif filters out models with high collinearity", {
   x3 <- x1 + rnorm(n, sd = 0.1)
   y <- x1 + x2 + x3 + rnorm(n)
   env_data <- data.frame(x1, x2, x3, y)
-  AllModels <- make_models(vars = c("x1", "x2", "x3"))
+  AllModels <- make_models(vars = c("x1", "x2", "x3"), ncores = 1)
 
   # Call the function with filter = TRUE
   res <- filter_vif(all_forms = AllModels,
@@ -51,7 +50,7 @@ test_that("filter_vif flags models with high collinearity when filter = FALSE", 
   x3 <- x1 + rnorm(n, sd = 0.1)
   y <- x1 + x2 + x3 + rnorm(n)
   env_data <- data.frame(x1, x2, x3, y)
-  AllModels <- make_models(vars = c("x1", "x2", "x3"))
+  AllModels <- make_models(vars = c("x1", "x2", "x3"), ncores = 1)
 
   # Call the function with filter = FALSE
   res <- filter_vif(all_forms = AllModels,
@@ -71,7 +70,7 @@ test_that("filter_vif handles missing values correctly", {
   data(dune.env)
   env_data <- dune.env
   env_data[1, 1] <- NA
-  AllModels <- make_models(vars = c("A1", "Moisture", "Manure"))
+  AllModels <- make_models(vars = c("A1", "Moisture", "Manure"), ncores = 1)
 
   # Call the function
 
