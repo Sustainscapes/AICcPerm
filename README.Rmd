@@ -11,7 +11,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# AICcPerm
+# AICcPermanova
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/Sustainscapes/AICcPerm/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Sustainscapes/AICcPerm/actions/workflows/R-CMD-check.yaml)
@@ -19,33 +19,38 @@ knitr::opts_chunk$set(
 [![Codecov test coverage](https://codecov.io/gh/Sustainscapes/AICcPerm/branch/master/graph/badge.svg)](https://app.codecov.io/gh/Sustainscapes/AICcPerm?branch=master)
 <!-- badges: end -->
 
-The goal of AICcPerm is to generate an R package that does model selection for Permanovas from the vegan packages, to install this package you can use the remotes package and intall it as this:
+The aim of the AICcPerm repository is to provide an R package that enables model selection for Permanovas from the vegan package. To install this package, you can use the remotes package to install its development version:
 
 ```{r, eval= F}
 remotes::install_github("Sustainscapes/AICcPerm")
 ```
 
+Alternatively, you can install the stable version from CRAN:
 
-## Generation of all possible models
+```{r, eval = F}
+install.packages("glmmPen")
+```
 
-For the generation of all possible models you can use the `make_models` function, just as in this example
+## Generating all possible models
+
+To generate all possible models, you can use the `make_models` function. For example:
 
 ```{r examplemakemodels, results='hide', message=FALSE}
 library(AICcPermanova)
 AllModels <- make_models(vars = c("pH", "Sand", "Clay"), ncores = 2)
 ```
 
-This will give you the following table:
+This function will create a table of all possible models for the specified variables, which you can see in the following table:
 
 ```{r Table1, echo = F}
 knitr::kable(AllModels)
 ```
 
-Where you can see all possible models for tose 3 variables.
+Where you can see all possible models for those 3 variables.
 
-## AICc calculation
+## Calculating AICc
 
-for this you can use the `AICc_permanova2`, this is an example of this:
+To calculate AICc, you can use the AICc_permanova2 function. Here's an example of how to use it:
 
 ```{r}
 
@@ -61,15 +66,17 @@ Model <- adonis2(dune ~ Management*A1, data = dune.env)
 Table_permanova <- AICc_permanova2(Model)
 ```
 
-This is shown in the following table
+The results of this calculation are displayed in the following table:
 
 ```{r permanovatable}
 knitr::kable(Table_permanova)
 ```
 
+In this example, we used the adonis2 function to run a PERMANOVA analysis on the dune dataset with the Management and A1 variables. We then calculated AICc using the AICc_permanova2 function
+
 ## Full example
 
-We will show the last function called `fit_models`, we will start by using the datasets from the vegan package:
+In this section, we'll provide a complete example of the AICcPerm package workflow. First, we need to load datasets from the vegan package:
 
 ```{r}
 library(vegan)
@@ -77,63 +84,76 @@ data(dune)
 data(dune.env)
 ```
 
-And then generate all possible models for 3 of the variables:
+Next, we'll generate all possible first-order models for this dataset:
 
 ```{r, results='hide'}
-AllModels <- make_models(vars = c("A1", "Moisture", "Manure"))
+AllModels <- make_models(vars = c("A1", "Moisture", "Management", "Use", "Manure"))
 ```
 
-We then get this table:
-
+This results in `r nrow(AllModels)` possible models, which are shown in the following table:
 ```{r, echo=FALSE}
 knitr::kable(AllModels)
 ```
 
-After this, we make a model selection by fitting all possible models:
+### Avoiding multicollinearity
+
+After generating all the models, it's important to check for multicollinearity. We can use the `filter_vif` function to filter out models that have a high degree of collinearity (defined as having a maximum value of VIF of 5 or more):
 
 ```{r}
-Fitted <- fit_models(all_forms = AllModels,
+NonColinear <- filter_vif(all_forms = AllModels, env_data = dune.env)
+```
+
+This reduces the number of models to `r nrow(NonColinear)`
+
+### Fittng the models
+
+After filtering out collinear models, we can fit all the remaining non-collinear models by using the `fit_models` function:
+
+```{r}
+Fitted <- fit_models(all_forms = NonColinear,
            veg_data = dune,
            env_data = dune.env,
            ncores = 4,
            method = "bray")
 ```
 
-Which results in the following table:
+This results in a table of fitted models ordered by AICc, which is displayed below:
 
 ```{r, echo=FALSE}
 knitr::kable(Fitted)
 ```
 
-If there is a block variable to be used, for example `Management` in the `dune.env` object, you can change the above code by using the `strata` argument:
+If there is a block variable to be used (such as Use in the dune.env object), you can specify it using the strata argument:
 
 ```{r fitwihtstrata}
-Fitted2 <- fit_models(all_forms = AllModels,
+Fitted2 <- fit_models(all_forms = NonColinear,
            veg_data = dune,
            env_data = dune.env,
            ncores = 4,
            method = "bray",
-           strata = "Management")
+           strata = "Use")
 ```
 
-Which results in the following table:
+This results in a table of fitted models that takes into account the block variable, which is displayed below:
 
 ```{r, echo=FALSE}
 knitr::kable(Fitted2)
 ```
 
-## Selecting models
+## Model Selection
 
-In order to select models we use the function `select_models` which will select models with a max VIF of less than 5 and a delta AICc of less than a parameter called delta_aicc which defaults to 2 if we use the last model we used in the section above that would get us to:
+To select models, we use the select_models function, which chooses models with a maximum VIF of less than 5 and a delta AICc less than a specified threshold, delta_aicc. By default, delta_aicc is set to 2.
+
+We can use the Fitted2 object generated in the previous section to select models:
 
 ```{r selected}
 Selected <- select_models(Fitted2)
 ```
 
-which results in the following table:
+The resulting table displays the selected models:
 
 ```{r tableselected, echo = FALSE}
 knitr::kable(Selected)
 ```
 
-
+Note that the models in the table satisfy the criteria for maximum VIF and delta AICc as specified in the `select_models` function.

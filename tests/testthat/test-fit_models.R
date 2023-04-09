@@ -4,7 +4,7 @@ library(vegan)
 # Create a data set for testing
 data(dune)
 data(dune.env)
-all_forms <- make_models(vars = c("A1", "Moisture", "Manure"), ncores = 1)
+all_forms <- make_models(vars = colnames(dune.env), ncores = 1)
 
 
 test_that("fit_models returns a data.frame", {
@@ -25,5 +25,5 @@ test_that("fit_models removes missing rows", {
 
   # Test the function
   result <- fit_models(all_forms, veg_data = dune, env_data = dune.env, verbose = TRUE, ncores = 1)
-  expect_equal(nrow(result), 8)
+  expect_equal(nrow(result), 32)
 })
