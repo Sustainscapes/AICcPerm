@@ -39,10 +39,6 @@
 
 
 AICc_permanova2 <- function(adonis2_model) {
-    # check to see if object is an adonis2_model...
-
-    if (is.na(adonis2_model$SumOfSqs[1]))
-      stop("object not output of adonis2 {vegan} ")
 
     # Ok, now extract appropriate terms from the adonis model Calculating AICc
     # using residual sum of squares (RSS or SSE) since I don't think that adonis
