@@ -74,21 +74,24 @@
 </nav><div class="container template-home">
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
-<div class="page-header"><h1 id="aiccperm">AICcPerm<a class="anchor" aria-label="anchor" href="#aiccperm"></a>
+<div class="page-header"><h1 id="aiccpermanova">AICcPermanova<a class="anchor" aria-label="anchor" href="#aiccpermanova"></a>
 </h1></div>
 <!-- badges: start -->
 
-<p>The goal of AICcPerm is to generate an R package that does model selection for Permanovas from the vegan packages, to install this package you can use the remotes package and intall it as this:</p>
+<p>The aim of the AICcPerm repository is to provide an R package that enables model selection for Permanovas from the vegan package. To install this package, you can use the remotes package to install its development version:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"Sustainscapes/AICcPerm"</span><span class="op">)</span></span></code></pre></div>
-<div class="section level2">
-<h2 id="generation-of-all-possible-models">Generation of all possible models<a class="anchor" aria-label="anchor" href="#generation-of-all-possible-models"></a>
-</h2>
-<p>For the generation of all possible models you can use the <code>make_models</code> function, just as in this example</p>
+<p>Alternatively, you can install the stable version from CRAN:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"glmmPen"</span><span class="op">)</span></span></code></pre></div>
+<div class="section level2">
+<h2 id="generating-all-possible-models">Generating all possible models<a class="anchor" aria-label="anchor" href="#generating-all-possible-models"></a>
+</h2>
+<p>To generate all possible models, you can use the <code>make_models</code> function. For example:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Sustainscapes/AICcPerm" class="external-link">AICcPermanova</a></span><span class="op">)</span></span>
 <span><span class="va">AllModels</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/make_models.html">make_models</a></span><span class="op">(</span>vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"pH"</span>, <span class="st">"Sand"</span>, <span class="st">"Clay"</span><span class="op">)</span>, ncores <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p>This will give you the following table:</p>
+<p>This function will create a table of all possible models for the specified variables, which you can see in the following table:</p>
 <table class="table">
 <thead><tr class="header">
 <th align="left">form</th>
@@ -120,13 +123,13 @@
 </tr>
 </tbody>
 </table>
-<p>Where you can see all possible models for tose 3 variables.</p>
+<p>Where you can see all possible models for those 3 variables.</p>
 </div>
 <div class="section level2">
-<h2 id="aicc-calculation">AICc calculation<a class="anchor" aria-label="anchor" href="#aicc-calculation"></a>
+<h2 id="calculating-aicc">Calculating AICc<a class="anchor" aria-label="anchor" href="#calculating-aicc"></a>
 </h2>
-<p>for this you can use the <code>AICc_permanova2</code>, this is an example of this:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<p>To calculate AICc, you can use the AICc_permanova2 function. Here’s an example of how to use it:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/vegandevs/vegan" class="external-link">vegan</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; Loading required package: permute</span></span>
@@ -141,8 +144,8 @@
 <span></span>
 <span><span class="co"># Calculate AICc</span></span>
 <span><span class="va">Table_permanova</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/AICc_permanova2.html">AICc_permanova2</a></span><span class="op">(</span><span class="va">Model</span><span class="op">)</span></span></code></pre></div>
-<p>This is shown in the following table</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<p>The results of this calculation are displayed in the following table:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">Table_permanova</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
@@ -156,22 +159,25 @@
 <td align="right">20</td>
 </tr></tbody>
 </table>
+<p>In this example, we used the adonis2 function to run a PERMANOVA analysis on the dune dataset with the Management and A1 variables. We then calculated AICc using the AICc_permanova2 function</p>
 </div>
 <div class="section level2">
 <h2 id="full-example">Full example<a class="anchor" aria-label="anchor" href="#full-example"></a>
 </h2>
-<p>We will show the last function called <code>fit_models</code>, we will start by using the datasets from the vegan package:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<p>In this section, we’ll provide a complete example of the AICcPerm package workflow. First, we need to load datasets from the vegan package:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/vegandevs/vegan" class="external-link">vegan</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune.env</span><span class="op">)</span></span></code></pre></div>
-<p>And then generate all possible models for 3 of the variables:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">AllModels</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/make_models.html">make_models</a></span><span class="op">(</span>vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A1"</span>, <span class="st">"Moisture"</span>, <span class="st">"Manure"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 1 of 3 ready 2023-04-09 05:51:19</span></span>
-<span><span class="co">#&gt; 2 of 3 ready 2023-04-09 05:51:24</span></span>
-<span><span class="co">#&gt; 3 of 3 ready 2023-04-09 05:51:26</span></span></code></pre></div>
-<p>We then get this table:</p>
+<p>Next, we’ll generate all possible first-order models for this dataset:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">AllModels</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/make_models.html">make_models</a></span><span class="op">(</span>vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A1"</span>, <span class="st">"Moisture"</span>, <span class="st">"Management"</span>, <span class="st">"Use"</span>, <span class="st">"Manure"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; 1 of 5 ready 2023-04-09 20:14:01</span></span>
+<span><span class="co">#&gt; 2 of 5 ready 2023-04-09 20:14:05</span></span>
+<span><span class="co">#&gt; 3 of 5 ready 2023-04-09 20:14:10</span></span>
+<span><span class="co">#&gt; 4 of 5 ready 2023-04-09 20:14:14</span></span>
+<span><span class="co">#&gt; 5 of 5 ready 2023-04-09 20:14:16</span></span></code></pre></div>
+<p>This results in 32 possible models, which are shown in the following table:</p>
 <table class="table">
 <thead><tr class="header">
 <th align="left">form</th>
@@ -184,93 +190,256 @@
 <td align="left">Distance ~ Moisture</td>
 </tr>
 <tr class="odd">
+<td align="left">Distance ~ Management</td>
+</tr>
+<tr class="even">
+<td align="left">Distance ~ Use</td>
+</tr>
+<tr class="odd">
 <td align="left">Distance ~ Manure</td>
 </tr>
 <tr class="even">
 <td align="left">Distance ~ A1 + Moisture</td>
 </tr>
 <tr class="odd">
+<td align="left">Distance ~ A1 + Management</td>
+</tr>
+<tr class="even">
+<td align="left">Distance ~ A1 + Use</td>
+</tr>
+<tr class="odd">
 <td align="left">Distance ~ A1 + Manure</td>
+</tr>
+<tr class="even">
+<td align="left">Distance ~ Moisture + Management</td>
+</tr>
+<tr class="odd">
+<td align="left">Distance ~ Moisture + Use</td>
 </tr>
 <tr class="even">
 <td align="left">Distance ~ Moisture + Manure</td>
 </tr>
 <tr class="odd">
+<td align="left">Distance ~ Management + Use</td>
+</tr>
+<tr class="even">
+<td align="left">Distance ~ Management + Manure</td>
+</tr>
+<tr class="odd">
+<td align="left">Distance ~ Use + Manure</td>
+</tr>
+<tr class="even">
+<td align="left">Distance ~ A1 + Moisture + Management</td>
+</tr>
+<tr class="odd">
+<td align="left">Distance ~ A1 + Moisture + Use</td>
+</tr>
+<tr class="even">
 <td align="left">Distance ~ A1 + Moisture + Manure</td>
+</tr>
+<tr class="odd">
+<td align="left">Distance ~ A1 + Management + Use</td>
+</tr>
+<tr class="even">
+<td align="left">Distance ~ A1 + Management + Manure</td>
+</tr>
+<tr class="odd">
+<td align="left">Distance ~ A1 + Use + Manure</td>
+</tr>
+<tr class="even">
+<td align="left">Distance ~ Moisture + Management + Use</td>
+</tr>
+<tr class="odd">
+<td align="left">Distance ~ Moisture + Management + Manure</td>
+</tr>
+<tr class="even">
+<td align="left">Distance ~ Moisture + Use + Manure</td>
+</tr>
+<tr class="odd">
+<td align="left">Distance ~ Management + Use + Manure</td>
+</tr>
+<tr class="even">
+<td align="left">Distance ~ A1 + Moisture + Management + Use</td>
+</tr>
+<tr class="odd">
+<td align="left">Distance ~ A1 + Moisture + Management + Manure</td>
+</tr>
+<tr class="even">
+<td align="left">Distance ~ A1 + Moisture + Use + Manure</td>
+</tr>
+<tr class="odd">
+<td align="left">Distance ~ A1 + Management + Use + Manure</td>
+</tr>
+<tr class="even">
+<td align="left">Distance ~ Moisture + Management + Use + Manure</td>
+</tr>
+<tr class="odd">
+<td align="left">Distance ~ A1 + Moisture + Management + Use + Manure</td>
 </tr>
 <tr class="even">
 <td align="left">Distance ~ 1</td>
 </tr>
 </tbody>
 </table>
-<p>After this, we make a model selection by fitting all possible models:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">Fitted</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fit_models.html">fit_models</a></span><span class="op">(</span>all_forms <span class="op">=</span> <span class="va">AllModels</span>,</span>
+<div class="section level3">
+<h3 id="avoiding-multicollinearity">Avoiding multicollinearity<a class="anchor" aria-label="anchor" href="#avoiding-multicollinearity"></a>
+</h3>
+<p>After generating all the models, it’s important to check for multicollinearity. We can use the <code>filter_vif</code> function to filter out models that have a high degree of collinearity (defined as having a maximum value of VIF of 5 or more):</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">NonColinear</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/filter_vif.html">filter_vif</a></span><span class="op">(</span>all_forms <span class="op">=</span> <span class="va">AllModels</span>, env_data <span class="op">=</span> <span class="va">dune.env</span><span class="op">)</span></span></code></pre></div>
+<p>This reduces the number of models to 21</p>
+</div>
+<div class="section level3">
+<h3 id="fittng-the-models">Fittng the models<a class="anchor" aria-label="anchor" href="#fittng-the-models"></a>
+</h3>
+<p>After filtering out collinear models, we can fit all the remaining non-collinear models by using the <code>fit_models</code> function:</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Fitted</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fit_models.html">fit_models</a></span><span class="op">(</span>all_forms <span class="op">=</span> <span class="va">NonColinear</span>,</span>
 <span>           veg_data <span class="op">=</span> <span class="va">dune</span>,</span>
 <span>           env_data <span class="op">=</span> <span class="va">dune.env</span>,</span>
 <span>           ncores <span class="op">=</span> <span class="fl">4</span>,</span>
 <span>           method <span class="op">=</span> <span class="st">"bray"</span><span class="op">)</span></span></code></pre></div>
-<p>Which results in the following table:</p>
-<table style="width:100%;" class="table">
+<p>This results in a table of fitted models ordered by AICc, which is displayed below:</p>
+<table class="table">
 <colgroup>
-<col width="37%">
-<col width="11%">
-<col width="10%">
-<col width="11%">
-<col width="11%">
-<col width="11%">
+<col width="35%">
 <col width="7%">
+<col width="9%">
+<col width="8%">
+<col width="8%">
+<col width="9%">
+<col width="8%">
+<col width="8%">
+<col width="5%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">form</th>
-<th align="right">AICc</th>
 <th align="right">max_vif</th>
+<th align="right">AICc</th>
 <th align="right">A1</th>
 <th align="right">Moisture</th>
+<th align="right">Management</th>
+<th align="right">Use</th>
 <th align="right">Manure</th>
 <th align="right">Model</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
 <td align="left">Distance ~ Moisture</td>
-<td align="right">-30.36319</td>
 <td align="right">0.000000</td>
+<td align="right">-30.363195</td>
 <td align="right">NA</td>
 <td align="right">0.4019903</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
 <tr class="even">
 <td align="left">Distance ~ A1</td>
-<td align="right">-29.72347</td>
 <td align="right">0.000000</td>
+<td align="right">-29.723474</td>
 <td align="right">0.1681666</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
 <tr class="odd">
 <td align="left">Distance ~ 1</td>
-<td align="right">-28.52467</td>
 <td align="right">0.000000</td>
+<td align="right">-28.524673</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">0</td>
 </tr>
 <tr class="even">
+<td align="left">Distance ~ Management</td>
+<td align="right">0.000000</td>
+<td align="right">-28.439405</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">0.3416107</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
 <td align="left">Distance ~ A1 + Moisture</td>
-<td align="right">-28.21149</td>
 <td align="right">3.000000</td>
+<td align="right">-28.211489</td>
 <td align="right">0.0423034</td>
 <td align="right">0.2761272</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Distance ~ A1 + Management</td>
+<td align="right">3.000000</td>
+<td align="right">-28.206906</td>
+<td align="right">0.1025557</td>
+<td align="right">NA</td>
+<td align="right">0.2759998</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Distance ~ A1 + Use</td>
+<td align="right">2.000000</td>
+<td align="right">-27.243308</td>
+<td align="right">0.1723656</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">0.1328680</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Distance ~ Moisture + Use</td>
+<td align="right">3.000000</td>
+<td align="right">-26.706730</td>
+<td align="right">NA</td>
+<td align="right">0.3850987</td>
+<td align="right">NA</td>
+<td align="right">0.1117773</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Distance ~ Moisture + Management</td>
+<td align="right">3.000000</td>
+<td align="right">-26.219635</td>
+<td align="right">NA</td>
+<td align="right">0.2678801</td>
+<td align="right">0.2075005</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Distance ~ Use</td>
+<td align="right">0.000000</td>
+<td align="right">-26.001561</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">0.1286690</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
 <tr class="odd">
 <td align="left">Distance ~ Manure</td>
-<td align="right">-25.21490</td>
 <td align="right">0.000000</td>
+<td align="right">-25.214897</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">0.3544714</td>
@@ -278,102 +447,265 @@
 </tr>
 <tr class="even">
 <td align="left">Distance ~ A1 + Manure</td>
-<td align="right">-25.18745</td>
 <td align="right">4.000000</td>
+<td align="right">-25.187448</td>
 <td align="right">0.1209209</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">0.3072258</td>
 <td align="right">NA</td>
 </tr>
 <tr class="odd">
+<td align="left">Distance ~ A1 + Moisture + Use</td>
+<td align="right">3.000000</td>
+<td align="right">-24.004036</td>
+<td align="right">0.0499753</td>
+<td align="right">0.2627084</td>
+<td align="right">NA</td>
+<td align="right">0.1194492</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Distance ~ Management + Use</td>
+<td align="right">3.000000</td>
+<td align="right">-23.493146</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">0.3003444</td>
+<td align="right">0.0874027</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
 <td align="left">Distance ~ Moisture + Manure</td>
-<td align="right">-22.93984</td>
 <td align="right">4.000000</td>
+<td align="right">-22.939843</td>
 <td align="right">NA</td>
 <td align="right">0.3005223</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">0.2530035</td>
 <td align="right">NA</td>
 </tr>
 <tr class="even">
+<td align="left">Distance ~ A1 + Moisture + Management</td>
+<td align="right">3.000000</td>
+<td align="right">-22.910428</td>
+<td align="right">0.0449952</td>
+<td align="right">0.2103196</td>
+<td align="right">0.2101923</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Distance ~ A1 + Management + Use</td>
+<td align="right">3.000000</td>
+<td align="right">-21.475776</td>
+<td align="right">0.0759437</td>
+<td align="right">NA</td>
+<td align="right">0.2039225</td>
+<td align="right">0.0607907</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Distance ~ Use + Manure</td>
+<td align="right">4.000000</td>
+<td align="right">-19.071272</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">0.0872434</td>
+<td align="right">0.3130459</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
 <td align="left">Distance ~ A1 + Moisture + Manure</td>
-<td align="right">-18.59078</td>
 <td align="right">4.508169</td>
+<td align="right">-18.590778</td>
 <td align="right">0.0414517</td>
 <td align="right">0.2210532</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">0.2521518</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Distance ~ Moisture + Management + Use</td>
+<td align="right">3.648562</td>
+<td align="right">-15.655183</td>
+<td align="right">NA</td>
+<td align="right">0.2194405</td>
+<td align="right">0.1346862</td>
+<td align="right">0.0389631</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Distance ~ A1 + Moisture + Management + Use</td>
+<td align="right">4.710040</td>
+<td align="right">-8.837299</td>
+<td align="right">0.0274588</td>
+<td align="right">0.1709557</td>
+<td align="right">0.1121697</td>
+<td align="right">0.0214267</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
 </tbody>
 </table>
-<p>If there is a block variable to be used, for example <code>Management</code> in the <code>dune.env</code> object, you can change the above code by using the <code>strata</code> argument:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">Fitted2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fit_models.html">fit_models</a></span><span class="op">(</span>all_forms <span class="op">=</span> <span class="va">AllModels</span>,</span>
+<p>If there is a block variable to be used (such as Use in the dune.env object), you can specify it using the strata argument:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Fitted2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fit_models.html">fit_models</a></span><span class="op">(</span>all_forms <span class="op">=</span> <span class="va">NonColinear</span>,</span>
 <span>           veg_data <span class="op">=</span> <span class="va">dune</span>,</span>
 <span>           env_data <span class="op">=</span> <span class="va">dune.env</span>,</span>
 <span>           ncores <span class="op">=</span> <span class="fl">4</span>,</span>
 <span>           method <span class="op">=</span> <span class="st">"bray"</span>,</span>
-<span>           strata <span class="op">=</span> <span class="st">"Management"</span><span class="op">)</span></span></code></pre></div>
-<p>Which results in the following table:</p>
-<table style="width:100%;" class="table">
+<span>           strata <span class="op">=</span> <span class="st">"Use"</span><span class="op">)</span></span></code></pre></div>
+<p>This results in a table of fitted models that takes into account the block variable, which is displayed below:</p>
+<table class="table">
 <colgroup>
-<col width="37%">
-<col width="11%">
-<col width="10%">
-<col width="11%">
-<col width="11%">
-<col width="11%">
+<col width="35%">
 <col width="7%">
+<col width="9%">
+<col width="8%">
+<col width="8%">
+<col width="9%">
+<col width="8%">
+<col width="8%">
+<col width="5%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">form</th>
-<th align="right">AICc</th>
 <th align="right">max_vif</th>
+<th align="right">AICc</th>
 <th align="right">A1</th>
 <th align="right">Moisture</th>
+<th align="right">Management</th>
+<th align="right">Use</th>
 <th align="right">Manure</th>
 <th align="right">Model</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
 <td align="left">Distance ~ Moisture</td>
-<td align="right">-30.36319</td>
 <td align="right">0.000000</td>
+<td align="right">-30.363195</td>
 <td align="right">NA</td>
 <td align="right">0.4019903</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
 <tr class="even">
 <td align="left">Distance ~ A1</td>
-<td align="right">-29.72347</td>
 <td align="right">0.000000</td>
+<td align="right">-29.723474</td>
 <td align="right">0.1681666</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
 <tr class="odd">
 <td align="left">Distance ~ 1</td>
-<td align="right">-28.52467</td>
 <td align="right">0.000000</td>
+<td align="right">-28.524673</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">0</td>
 </tr>
 <tr class="even">
+<td align="left">Distance ~ Management</td>
+<td align="right">0.000000</td>
+<td align="right">-28.439405</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">0.3416107</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
 <td align="left">Distance ~ A1 + Moisture</td>
-<td align="right">-28.21149</td>
 <td align="right">3.000000</td>
+<td align="right">-28.211489</td>
 <td align="right">0.0423034</td>
 <td align="right">0.2761272</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Distance ~ A1 + Management</td>
+<td align="right">3.000000</td>
+<td align="right">-28.206906</td>
+<td align="right">0.1025557</td>
+<td align="right">NA</td>
+<td align="right">0.2759998</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Distance ~ A1 + Use</td>
+<td align="right">2.000000</td>
+<td align="right">-27.243308</td>
+<td align="right">0.1723656</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">0.1328680</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Distance ~ Moisture + Use</td>
+<td align="right">3.000000</td>
+<td align="right">-26.706730</td>
+<td align="right">NA</td>
+<td align="right">0.3850987</td>
+<td align="right">NA</td>
+<td align="right">0.1117773</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Distance ~ Moisture + Management</td>
+<td align="right">3.000000</td>
+<td align="right">-26.219635</td>
+<td align="right">NA</td>
+<td align="right">0.2678801</td>
+<td align="right">0.2075005</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Distance ~ Use</td>
+<td align="right">0.000000</td>
+<td align="right">-26.001561</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">0.1286690</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
 <tr class="odd">
 <td align="left">Distance ~ Manure</td>
-<td align="right">-25.21490</td>
 <td align="right">0.000000</td>
+<td align="right">-25.214897</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">0.3544714</td>
@@ -381,58 +713,147 @@
 </tr>
 <tr class="even">
 <td align="left">Distance ~ A1 + Manure</td>
-<td align="right">-25.18745</td>
 <td align="right">4.000000</td>
+<td align="right">-25.187448</td>
 <td align="right">0.1209209</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">0.3072258</td>
 <td align="right">NA</td>
 </tr>
 <tr class="odd">
+<td align="left">Distance ~ A1 + Moisture + Use</td>
+<td align="right">3.000000</td>
+<td align="right">-24.004036</td>
+<td align="right">0.0499753</td>
+<td align="right">0.2627084</td>
+<td align="right">NA</td>
+<td align="right">0.1194492</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Distance ~ Management + Use</td>
+<td align="right">3.000000</td>
+<td align="right">-23.493146</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">0.3003444</td>
+<td align="right">0.0874027</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
 <td align="left">Distance ~ Moisture + Manure</td>
-<td align="right">-22.93984</td>
 <td align="right">4.000000</td>
+<td align="right">-22.939843</td>
 <td align="right">NA</td>
 <td align="right">0.3005223</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">0.2530035</td>
 <td align="right">NA</td>
 </tr>
 <tr class="even">
+<td align="left">Distance ~ A1 + Moisture + Management</td>
+<td align="right">3.000000</td>
+<td align="right">-22.910428</td>
+<td align="right">0.0449952</td>
+<td align="right">0.2103196</td>
+<td align="right">0.2101923</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Distance ~ A1 + Management + Use</td>
+<td align="right">3.000000</td>
+<td align="right">-21.475776</td>
+<td align="right">0.0759437</td>
+<td align="right">NA</td>
+<td align="right">0.2039225</td>
+<td align="right">0.0607907</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Distance ~ Use + Manure</td>
+<td align="right">4.000000</td>
+<td align="right">-19.071272</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">0.0872434</td>
+<td align="right">0.3130459</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
 <td align="left">Distance ~ A1 + Moisture + Manure</td>
-<td align="right">-18.59078</td>
 <td align="right">4.508169</td>
+<td align="right">-18.590778</td>
 <td align="right">0.0414517</td>
 <td align="right">0.2210532</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">0.2521518</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Distance ~ Moisture + Management + Use</td>
+<td align="right">3.648562</td>
+<td align="right">-15.655183</td>
+<td align="right">NA</td>
+<td align="right">0.2194405</td>
+<td align="right">0.1346862</td>
+<td align="right">0.0389631</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Distance ~ A1 + Moisture + Management + Use</td>
+<td align="right">4.710040</td>
+<td align="right">-8.837299</td>
+<td align="right">0.0274588</td>
+<td align="right">0.1709557</td>
+<td align="right">0.1121697</td>
+<td align="right">0.0214267</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
 </tbody>
 </table>
 </div>
+</div>
 <div class="section level2">
-<h2 id="selecting-models">Selecting models<a class="anchor" aria-label="anchor" href="#selecting-models"></a>
+<h2 id="model-selection">Model Selection<a class="anchor" aria-label="anchor" href="#model-selection"></a>
 </h2>
-<p>In order to select models we use the function <code>select_models</code> which will select models with a max VIF of less than 5 and a delta AICc of less than a parameter called delta_aicc which defaults to 2 if we use the last model we used in the section above that would get us to:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<p>To select models, we use the select_models function, which chooses models with a maximum VIF of less than 5 and a delta AICc less than a specified threshold, delta_aicc. By default, delta_aicc is set to 2.</p>
+<p>We can use the Fitted2 object generated in the previous section to select models:</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Selected</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/select_models.html">select_models</a></span><span class="op">(</span><span class="va">Fitted2</span><span class="op">)</span></span></code></pre></div>
-<p>which results in the following table:</p>
-<table class="table">
+<p>The resulting table displays the selected models:</p>
+<table style="width:100%;" class="table">
 <colgroup>
-<col width="24%">
-<col width="12%">
-<col width="10%">
-<col width="12%">
-<col width="12%">
+<col width="22%">
 <col width="8%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
+<col width="11%">
+<col width="4%">
 <col width="7%">
-<col width="12%">
+<col width="6%">
+<col width="10%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">form</th>
-<th align="right">AICc</th>
 <th align="right">max_vif</th>
+<th align="right">AICc</th>
 <th align="right">A1</th>
 <th align="right">Moisture</th>
+<th align="right">Management</th>
+<th align="right">Use</th>
 <th align="right">Manure</th>
 <th align="right">Model</th>
 <th align="right">DeltaAICc</th>
@@ -440,19 +861,23 @@
 <tbody>
 <tr class="odd">
 <td align="left">Distance ~ Moisture</td>
-<td align="right">-30.36319</td>
 <td align="right">0</td>
+<td align="right">-30.36319</td>
 <td align="right">NA</td>
 <td align="right">0.4019903</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">0.0000000</td>
 </tr>
 <tr class="even">
 <td align="left">Distance ~ A1</td>
-<td align="right">-29.72347</td>
 <td align="right">0</td>
+<td align="right">-29.72347</td>
 <td align="right">0.1681666</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
@@ -460,16 +885,31 @@
 </tr>
 <tr class="odd">
 <td align="left">Distance ~ 1</td>
-<td align="right">-28.52467</td>
 <td align="right">0</td>
+<td align="right">-28.52467</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">0</td>
 <td align="right">1.8385219</td>
 </tr>
+<tr class="even">
+<td align="left">Distance ~ Management</td>
+<td align="right">0</td>
+<td align="right">-28.43941</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">0.3416107</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">1.9237896</td>
+</tr>
 </tbody>
 </table>
+<p>Note that the models in the table satisfy the criteria for maximum VIF and delta AICc as specified in the <code>select_models</code> function.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
