@@ -17,5 +17,7 @@ select_models <- function(df, delta_aicc = 2){
   Result <- data.table::setDT(df)[AICc > -Inf & max_vif <= 5,
                       DeltaAICc := AICc - min(AICc)][DeltaAICc <= delta_aicc] |>
     as.data.frame()
+  # remove columns with only NAs
+  Result <- Result[, colSums(is.na(Result)) != nrow(Result), drop = FALSE]
   return(Result)
 }

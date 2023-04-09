@@ -28,7 +28,7 @@ remotes::install_github("Sustainscapes/AICcPerm")
 Alternatively, you can install the stable version from CRAN:
 
 ```{r, eval = F}
-install.packages("glmmPen")
+install.packages("AICcPermanova")
 ```
 
 ## Generating all possible models

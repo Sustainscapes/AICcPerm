@@ -24,7 +24,7 @@ remotes::install_github("Sustainscapes/AICcPerm")
 Alternatively, you can install the stable version from CRAN:
 
 ``` r
-install.packages("glmmPen")
+install.packages("AICcPermanova")
 ```
 
 ## Generating all possible models
@@ -105,11 +105,11 @@ Next, we’ll generate all possible first-order models for this dataset:
 
 ``` r
 AllModels <- make_models(vars = c("A1", "Moisture", "Management", "Use", "Manure"))
-#> 1 of 5 ready 2023-04-09 20:14:01
-#> 2 of 5 ready 2023-04-09 20:14:05
-#> 3 of 5 ready 2023-04-09 20:14:10
-#> 4 of 5 ready 2023-04-09 20:14:14
-#> 5 of 5 ready 2023-04-09 20:14:16
+#> 1 of 5 ready 2023-04-09 20:25:44
+#> 2 of 5 ready 2023-04-09 20:25:48
+#> 3 of 5 ready 2023-04-09 20:25:52
+#> 4 of 5 ready 2023-04-09 20:25:56
+#> 5 of 5 ready 2023-04-09 20:25:59
 ```
 
 This results in 32 possible models, which are shown in the following
@@ -257,12 +257,12 @@ Selected <- select_models(Fitted2)
 
 The resulting table displays the selected models:
 
-| form                   | max_vif |      AICc |        A1 |  Moisture | Management | Use | Manure | Model | DeltaAICc |
-|:-----------------------|--------:|----------:|----------:|----------:|-----------:|----:|-------:|------:|----------:|
-| Distance \~ Moisture   |       0 | -30.36319 |        NA | 0.4019903 |         NA |  NA |     NA |    NA | 0.0000000 |
-| Distance \~ A1         |       0 | -29.72347 | 0.1681666 |        NA |         NA |  NA |     NA |    NA | 0.6397207 |
-| Distance \~ 1          |       0 | -28.52467 |        NA |        NA |         NA |  NA |     NA |     0 | 1.8385219 |
-| Distance \~ Management |       0 | -28.43941 |        NA |        NA |  0.3416107 |  NA |     NA |    NA | 1.9237896 |
+| form                   | max_vif |      AICc |        A1 |  Moisture | Management | Model | DeltaAICc |
+|:-----------------------|--------:|----------:|----------:|----------:|-----------:|------:|----------:|
+| Distance \~ Moisture   |       0 | -30.36319 |        NA | 0.4019903 |         NA |    NA | 0.0000000 |
+| Distance \~ A1         |       0 | -29.72347 | 0.1681666 |        NA |         NA |    NA | 0.6397207 |
+| Distance \~ 1          |       0 | -28.52467 |        NA |        NA |         NA |     0 | 1.8385219 |
+| Distance \~ Management |       0 | -28.43941 |        NA |        NA |  0.3416107 |    NA | 1.9237896 |
 
 Note that the models in the table satisfy the criteria for maximum VIF
 and delta AICc as specified in the `select_models` function.
