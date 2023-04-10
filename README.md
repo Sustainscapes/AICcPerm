@@ -105,11 +105,11 @@ Next, we’ll generate all possible first-order models for this dataset:
 
 ``` r
 AllModels <- make_models(vars = c("A1", "Moisture", "Management", "Use", "Manure"))
-#> 1 of 5 ready 2023-04-10 05:34:05
-#> 2 of 5 ready 2023-04-10 05:34:11
-#> 3 of 5 ready 2023-04-10 05:34:17
-#> 4 of 5 ready 2023-04-10 05:34:23
-#> 5 of 5 ready 2023-04-10 05:34:27
+#> 1 of 5 ready 2023-04-10 07:03:32
+#> 2 of 5 ready 2023-04-10 07:03:38
+#> 3 of 5 ready 2023-04-10 07:03:45
+#> 4 of 5 ready 2023-04-10 07:03:52
+#> 5 of 5 ready 2023-04-10 07:03:55
 ```
 
 This results in 32 possible models, which are shown in the following
@@ -257,12 +257,29 @@ Selected <- select_models(Fitted2)
 
 The resulting table displays the selected models:
 
-| form                   | max_vif |      AICc |   k |   N |        A1 |  Moisture | Management | Model | DeltaAICc |
-|:-----------------------|--------:|----------:|----:|----:|----------:|----------:|-----------:|------:|----------:|
-| Distance \~ Moisture   |       0 | -30.36319 |   4 |  20 |        NA | 0.4019903 |         NA |    NA | 0.0000000 |
-| Distance \~ A1         |       0 | -29.72347 |   2 |  20 | 0.1681666 |        NA |         NA |    NA | 0.6397207 |
-| Distance \~ 1          |       0 | -28.52467 |   1 |  20 |        NA |        NA |         NA |     0 | 1.8385219 |
-| Distance \~ Management |       0 | -28.43941 |   4 |  20 |        NA |        NA |  0.3416107 |    NA | 1.9237896 |
+| form                   | max_vif |      AICc |   k |   N |        A1 |  Moisture | Management | Model | DeltaAICc | AICWeight |
+|:-----------------------|--------:|----------:|----:|----:|----------:|----------:|-----------:|------:|----------:|----------:|
+| Distance \~ Moisture   |       0 | -30.36319 |   4 |  20 |        NA | 0.4019903 |         NA |    NA | 0.0000000 | 0.3988462 |
+| Distance \~ A1         |       0 | -29.72347 |   2 |  20 | 0.1681666 |        NA |         NA |    NA | 0.6397207 | 0.2896622 |
+| Distance \~ 1          |       0 | -28.52467 |   1 |  20 |        NA |        NA |         NA |     0 | 1.8385219 | 0.1590653 |
+| Distance \~ Management |       0 | -28.43941 |   4 |  20 |        NA |        NA |  0.3416107 |    NA | 1.9237896 | 0.1524263 |
 
 Note that the models in the table satisfy the criteria for maximum VIF
 and delta AICc as specified in the `select_models` function.
+
+### Summary weighted by AICc
+
+finally you can do a summarized r squared weighted by AICc using the
+`akaike_adjusted_rsq` function as seen bellow:
+
+``` r
+Summary <- akaike_adjusted_rsq(Selected)
+```
+
+which results in the following table:
+
+| Variable   | Full_Akaike_Adjusted_RSq |
+|:-----------|-------------------------:|
+| A1         |                0.0487115 |
+| Moisture   |                0.1603323 |
+| Management |                       NA |

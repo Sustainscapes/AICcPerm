@@ -157,3 +157,20 @@ knitr::kable(Selected)
 ```
 
 Note that the models in the table satisfy the criteria for maximum VIF and delta AICc as specified in the `select_models` function.
+
+
+### Summary weighted by AICc
+
+finally you can do a summarized r squared weighted by AICc using the 
+`akaike_adjusted_rsq` function as seen bellow:
+
+```{r}
+Summary <- akaike_adjusted_rsq(Selected)
+```
+
+which results in the following table:
+
+```{r, echo = FALSE}
+knitr::kable(Summary)
+```
+
