@@ -16,5 +16,6 @@ test_that("select_models returns correct number of rows with delta_aicc = 5", {
 
 test_that("select_models returns empty data frame when no models meet criteria", {
   df2 <- data.frame(AICc = c(-10, -5, -8, -20), max_vif = c(10, 11, 12, 13))
-  expect_equal(nrow(select_models(df2)), 0)
+  capture_warnings(Rows <- nrow(select_models(df2)))
+  expect_equal(Rows, 0)
 })
