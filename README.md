@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# AICcPermanova
+# 1 AICcPermanova
 
 <!-- badges: start -->
 
@@ -10,11 +10,24 @@
 status](https://www.r-pkg.org/badges/version/AICcPermanova)](https://CRAN.R-project.org/package=AICcPermanova)
 [![Codecov test
 coverage](https://codecov.io/gh/Sustainscapes/AICcPerm/branch/master/graph/badge.svg)](https://app.codecov.io/gh/Sustainscapes/AICcPerm?branch=master)
+[![CRAN RStudio mirror
+downloads](https://cranlogs.r-pkg.org/badges/grand-total/AICcPermanova?color=blue)](https://r-pkg.org/pkg/AICcPermanova)
+[![CRAN RStudio mirror
+downloads](https://cranlogs.r-pkg.org/badges/last-month/AICcPermanova?color=blue)](https://r-pkg.org/pkg/AICcPermanova)”
+[![pkgcheck](https://github.com/Sustainscapes/AICcPerm/workflows/pkgcheck/badge.svg)](https://github.com/Sustainscapes/AICcPerm/actions?query=workflow%3Apkgcheck)
 <!-- badges: end -->
 
-The aim of the AICcPerm repository is to provide an R package that
-enables model selection for Permanovas from the vegan package. To
-install this package, you can use the remotes package to install its
+# 2 Introduction
+
+The AICcPermanova package provides an R implementation of model
+selection for Permanovas from the vegan package. This package enables
+users to generate all possible models for a given set of variables,
+calculate AICc values for those models, and perform model selection
+based on a given threshold.
+
+# 3 Installation
+
+To install this package, you can use the remotes package to install its
 development version:
 
 ``` r
@@ -27,7 +40,7 @@ Alternatively, you can install the stable version from CRAN:
 install.packages("AICcPermanova")
 ```
 
-## Generating all possible models
+## 3.1 Generating all possible models
 
 To generate all possible models, you can use the `make_models` function.
 For example:
@@ -53,7 +66,7 @@ specified variables, which you can see in the following table:
 
 Where you can see all possible models for those 3 variables.
 
-## Calculating AICc
+## 3.2 Calculating AICc
 
 To calculate AICc, you can use the AICc_permanova2 function. Here’s an
 example of how to use it:
@@ -89,7 +102,7 @@ In this example, we used the adonis2 function to run a PERMANOVA
 analysis on the dune dataset with the Management and A1 variables. We
 then calculated AICc using the AICc_permanova2 function
 
-## Full example
+## 3.3 Full example
 
 In this section, we’ll provide a complete example of the AICcPerm
 package workflow. First, we need to load datasets from the vegan
@@ -105,11 +118,11 @@ Next, we’ll generate all possible first-order models for this dataset:
 
 ``` r
 AllModels <- make_models(vars = c("A1", "Moisture", "Management", "Use", "Manure"))
-#> 1 of 5 ready 2023-04-10 07:03:32
-#> 2 of 5 ready 2023-04-10 07:03:38
-#> 3 of 5 ready 2023-04-10 07:03:45
-#> 4 of 5 ready 2023-04-10 07:03:52
-#> 5 of 5 ready 2023-04-10 07:03:55
+#> 1 of 5 ready 2023-04-10 13:02:28
+#> 2 of 5 ready 2023-04-10 13:02:32
+#> 3 of 5 ready 2023-04-10 13:02:36
+#> 4 of 5 ready 2023-04-10 13:02:40
+#> 5 of 5 ready 2023-04-10 13:02:42
 ```
 
 This results in 32 possible models, which are shown in the following
@@ -150,7 +163,7 @@ table:
 | Distance \~ A1 + Moisture + Management + Use + Manure |
 | Distance \~ 1                                         |
 
-### Avoiding multicollinearity
+### 3.3.1 Avoiding multicollinearity
 
 After generating all the models, it’s important to check for
 multicollinearity. We can use the `filter_vif` function to filter out
@@ -163,7 +176,7 @@ NonColinear <- filter_vif(all_forms = AllModels, env_data = dune.env)
 
 This reduces the number of models to 21
 
-### Fittng the models
+### 3.3.2 Fittng the models
 
 After filtering out collinear models, we can fit all the remaining
 non-collinear models by using the `fit_models` function:
@@ -242,7 +255,7 @@ block variable, which is displayed below:
 | Distance \~ Moisture + Management + Use      | 3.648562 | -15.655183 |   9 |  20 |        NA | 0.2194405 |  0.1346862 | 0.0389631 |        NA |    NA |
 | Distance \~ A1 + Moisture + Management + Use | 4.710040 |  -8.837299 |  10 |  20 | 0.0274588 | 0.1709557 |  0.1121697 | 0.0214267 |        NA |    NA |
 
-## Model Selection
+## 3.4 Model Selection
 
 To select models, we use the select_models function, which chooses
 models with a maximum VIF of less than 5 and a delta AICc less than a
@@ -267,7 +280,7 @@ The resulting table displays the selected models:
 Note that the models in the table satisfy the criteria for maximum VIF
 and delta AICc as specified in the `select_models` function.
 
-### Summary weighted by AICc
+### 3.4.1 Summary weighted by AICc
 
 finally you can do a summarized r squared weighted by AICc using the
 `akaike_adjusted_rsq` function as seen bellow:
@@ -283,3 +296,25 @@ which results in the following table:
 | A1         |                0.0487115 |
 | Moisture   |                0.1603323 |
 | Management |                       NA |
+
+# 4 Conclusion
+
+The AICcPerm package provides an easy-to-use implementation of model
+selection based on AICc, which is a useful tool for selecting the best
+model from a set of candidate models. By calculating AICc values for
+each model, we can compare them and select the model with the lowest
+AICc value. This method takes into account both model complexity and
+goodness-of-fit, making it a valuable approach for selecting models that
+balance these two factors.
+
+Furthermore, the AICcPermanova package offers additional tools for model
+selection, such as model averaging and model comparison based on
+likelihood ratio tests. These can be used to further refine model
+selection and improve the accuracy of model predictions.
+
+Overall, the AICcPermanova package is a powerful tool for model
+selection in a variety of contexts, including ecology, biology, and
+other fields that use statistical modeling to analyze complex data. By
+selecting the best model from a set of candidate models, researchers can
+make more accurate predictions and draw more reliable conclusions from
+their data.

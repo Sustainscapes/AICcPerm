@@ -1,5 +1,5 @@
 ---
-output: github_document
+output: bookdown::github_document2
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -17,9 +17,18 @@ knitr::opts_chunk$set(
 [![R-CMD-check](https://github.com/Sustainscapes/AICcPerm/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Sustainscapes/AICcPerm/actions/workflows/R-CMD-check.yaml)
 [![CRAN status](https://www.r-pkg.org/badges/version/AICcPermanova)](https://CRAN.R-project.org/package=AICcPermanova)
 [![Codecov test coverage](https://codecov.io/gh/Sustainscapes/AICcPerm/branch/master/graph/badge.svg)](https://app.codecov.io/gh/Sustainscapes/AICcPerm?branch=master)
+[![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/AICcPermanova?color=blue)](https://r-pkg.org/pkg/AICcPermanova)
+[![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/last-month/AICcPermanova?color=blue)](https://r-pkg.org/pkg/AICcPermanova)"
+[![pkgcheck](https://github.com/Sustainscapes/AICcPerm/workflows/pkgcheck/badge.svg)](https://github.com/Sustainscapes/AICcPerm/actions?query=workflow%3Apkgcheck)
 <!-- badges: end -->
 
-The aim of the AICcPerm repository is to provide an R package that enables model selection for Permanovas from the vegan package. To install this package, you can use the remotes package to install its development version:
+# Introduction
+
+The AICcPermanova package provides an R implementation of model selection for Permanovas from the vegan package. This package enables users to generate all possible models for a given set of variables, calculate AICc values for those models, and perform model selection based on a given threshold.
+
+# Installation
+
+To install this package, you can use the remotes package to install its development version:
 
 ```{r, eval= F}
 remotes::install_github("Sustainscapes/AICcPerm")
@@ -174,3 +183,10 @@ which results in the following table:
 knitr::kable(Summary)
 ```
 
+# Conclusion
+
+The AICcPerm package provides an easy-to-use implementation of model selection based on AICc, which is a useful tool for selecting the best model from a set of candidate models. By calculating AICc values for each model, we can compare them and select the model with the lowest AICc value. This method takes into account both model complexity and goodness-of-fit, making it a valuable approach for selecting models that balance these two factors.
+
+Furthermore, the AICcPermanova package offers additional tools for model selection, such as model averaging and model comparison based on likelihood ratio tests. These can be used to further refine model selection and improve the accuracy of model predictions.
+
+Overall, the AICcPermanova package is a powerful tool for model selection in a variety of contexts, including ecology, biology, and other fields that use statistical modeling to analyze complex data. By selecting the best model from a set of candidate models, researchers can make more accurate predictions and draw more reliable conclusions from their data.
