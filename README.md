@@ -15,6 +15,8 @@ downloads](https://cranlogs.r-pkg.org/badges/grand-total/AICcPermanova?color=blu
 [![CRAN RStudio mirror
 downloads](https://cranlogs.r-pkg.org/badges/last-month/AICcPermanova?color=blue)](https://r-pkg.org/pkg/AICcPermanova)”
 [![pkgcheck](https://github.com/Sustainscapes/AICcPerm/workflows/pkgcheck/badge.svg)](https://github.com/Sustainscapes/AICcPerm/actions?query=workflow%3Apkgcheck)
+[![Project Status:
+Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 <!-- badges: end -->
 
 # 2 Introduction
@@ -118,11 +120,11 @@ Next, we’ll generate all possible first-order models for this dataset:
 
 ``` r
 AllModels <- make_models(vars = c("A1", "Moisture", "Management", "Use", "Manure"))
-#> 1 of 5 ready 2023-04-10 13:02:28
-#> 2 of 5 ready 2023-04-10 13:02:32
-#> 3 of 5 ready 2023-04-10 13:02:36
-#> 4 of 5 ready 2023-04-10 13:02:40
-#> 5 of 5 ready 2023-04-10 13:02:42
+#> 1 of 5 ready 2023-04-10 13:28:11
+#> 2 of 5 ready 2023-04-10 13:28:15
+#> 3 of 5 ready 2023-04-10 13:28:19
+#> 4 of 5 ready 2023-04-10 13:28:23
+#> 5 of 5 ready 2023-04-10 13:28:26
 ```
 
 This results in 32 possible models, which are shown in the following

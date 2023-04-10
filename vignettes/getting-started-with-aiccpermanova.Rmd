@@ -1,8 +1,11 @@
 ---
-output: bookdown::github_document2
+title: "Getting started with the AICcPermanova package"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting started with the AICcPermanova package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
-
-<!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
@@ -11,17 +14,9 @@ knitr::opts_chunk$set(
 )
 ```
 
-# AICcPermanova
-
-<!-- badges: start -->
-[![R-CMD-check](https://github.com/Sustainscapes/AICcPerm/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Sustainscapes/AICcPerm/actions/workflows/R-CMD-check.yaml)
-[![CRAN status](https://www.r-pkg.org/badges/version/AICcPermanova)](https://CRAN.R-project.org/package=AICcPermanova)
-[![Codecov test coverage](https://codecov.io/gh/Sustainscapes/AICcPerm/branch/master/graph/badge.svg)](https://app.codecov.io/gh/Sustainscapes/AICcPerm?branch=master)
-[![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/AICcPermanova?color=blue)](https://r-pkg.org/pkg/AICcPermanova)
-[![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/last-month/AICcPermanova?color=blue)](https://r-pkg.org/pkg/AICcPermanova)"
-[![pkgcheck](https://github.com/Sustainscapes/AICcPerm/workflows/pkgcheck/badge.svg)](https://github.com/Sustainscapes/AICcPerm/actions?query=workflow%3Apkgcheck)
-[![Project Status: Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-<!-- badges: end -->
+```{r setup}
+library(AICcPermanova)
+```
 
 # Introduction
 
