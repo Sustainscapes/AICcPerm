@@ -126,31 +126,31 @@ https://doi.org/10.1111/j.1442-9993.2001.01070.pp.x</p>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune.env</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">AllModels</span> <span class="op">&lt;-</span> <span class="fu"><a href="make_models.html">make_models</a></span><span class="op">(</span>vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A1"</span>, <span class="st">"Moisture"</span>, <span class="st">"Manure"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 1 of 3 ready 2023-04-09 18:34:23</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2 of 3 ready 2023-04-09 18:34:27</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 3 of 3 ready 2023-04-09 18:34:29</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 1 of 3 ready 2023-04-10 04:59:50</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2 of 3 ready 2023-04-10 04:59:53</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 3 of 3 ready 2023-04-10 04:59:55</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">fit_models</span><span class="op">(</span>all_forms <span class="op">=</span> <span class="va">AllModels</span>,</span></span>
 <span class="r-in"><span>           veg_data <span class="op">=</span> <span class="va">dune</span>,</span></span>
 <span class="r-in"><span>           env_data <span class="op">=</span> <span class="va">dune.env</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                form      AICc  max_vif         A1  Moisture</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1               Distance ~ Moisture -30.36319 0.000000         NA 0.4019903</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                     Distance ~ A1 -29.72347 0.000000 0.16816657        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                      Distance ~ 1 -28.52467 0.000000         NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4          Distance ~ A1 + Moisture -28.21149 3.000000 0.04230343 0.2761272</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                 Distance ~ Manure -25.21490 0.000000         NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6            Distance ~ A1 + Manure -25.18745 4.000000 0.12092088        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7      Distance ~ Moisture + Manure -22.93984 4.000000         NA 0.3005223</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8 Distance ~ A1 + Moisture + Manure -18.59078 4.508169 0.04145173 0.2210532</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      Manure Model</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1        NA    NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2        NA    NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3        NA     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4        NA    NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.3544714    NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.3072258    NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7 0.2530035    NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8 0.2521518    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                form  max_vif      AICc k  N         A1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1               Distance ~ Moisture 0.000000 -30.36319 4 20         NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                     Distance ~ A1 0.000000 -29.72347 2 20 0.16816657</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                      Distance ~ 1 0.000000 -28.52467 1 20         NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4          Distance ~ A1 + Moisture 3.000000 -28.21149 5 20 0.04230343</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                 Distance ~ Manure 0.000000 -25.21490 5 20         NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6            Distance ~ A1 + Manure 4.000000 -25.18745 6 20 0.12092088</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7      Distance ~ Moisture + Manure 4.000000 -22.93984 8 20         NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8 Distance ~ A1 + Moisture + Manure 4.508169 -18.59078 9 20 0.04145173</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Moisture    Manure Model</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.4019903        NA    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        NA        NA    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3        NA        NA     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.2761272        NA    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5        NA 0.3544714    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6        NA 0.3072258    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 0.3005223 0.2530035    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8 0.2210532 0.2521518    NA</span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
