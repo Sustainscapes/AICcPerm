@@ -172,11 +172,11 @@
 <p>Next, we’ll generate all possible first-order models for this dataset:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">AllModels</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/make_models.html">make_models</a></span><span class="op">(</span>vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A1"</span>, <span class="st">"Moisture"</span>, <span class="st">"Management"</span>, <span class="st">"Use"</span>, <span class="st">"Manure"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 1 of 5 ready 2023-04-10 05:34:05</span></span>
-<span><span class="co">#&gt; 2 of 5 ready 2023-04-10 05:34:11</span></span>
-<span><span class="co">#&gt; 3 of 5 ready 2023-04-10 05:34:17</span></span>
-<span><span class="co">#&gt; 4 of 5 ready 2023-04-10 05:34:23</span></span>
-<span><span class="co">#&gt; 5 of 5 ready 2023-04-10 05:34:27</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 of 5 ready 2023-04-10 07:03:32</span></span>
+<span><span class="co">#&gt; 2 of 5 ready 2023-04-10 07:03:38</span></span>
+<span><span class="co">#&gt; 3 of 5 ready 2023-04-10 07:03:45</span></span>
+<span><span class="co">#&gt; 4 of 5 ready 2023-04-10 07:03:52</span></span>
+<span><span class="co">#&gt; 5 of 5 ready 2023-04-10 07:03:55</span></span></code></pre></div>
 <p>This results in 32 possible models, which are shown in the following table:</p>
 <table class="table">
 <thead><tr class="header">
@@ -925,18 +925,19 @@
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Selected</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/select_models.html">select_models</a></span><span class="op">(</span><span class="va">Fitted2</span><span class="op">)</span></span></code></pre></div>
 <p>The resulting table displays the selected models:</p>
-<table style="width:100%;" class="table">
+<table class="table">
 <colgroup>
-<col width="22%">
-<col width="8%">
-<col width="10%">
+<col width="20%">
+<col width="7%">
+<col width="9%">
 <col width="4%">
 <col width="4%">
+<col width="9%">
+<col width="9%">
 <col width="10%">
-<col width="10%">
-<col width="11%">
-<col width="6%">
-<col width="10%">
+<col width="5%">
+<col width="9%">
+<col width="9%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">form</th>
@@ -949,6 +950,7 @@
 <th align="right">Management</th>
 <th align="right">Model</th>
 <th align="right">DeltaAICc</th>
+<th align="right">AICWeight</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
@@ -962,6 +964,7 @@
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">0.0000000</td>
+<td align="right">0.3988462</td>
 </tr>
 <tr class="even">
 <td align="left">Distance ~ A1</td>
@@ -974,6 +977,7 @@
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">0.6397207</td>
+<td align="right">0.2896622</td>
 </tr>
 <tr class="odd">
 <td align="left">Distance ~ 1</td>
@@ -986,6 +990,7 @@
 <td align="right">NA</td>
 <td align="right">0</td>
 <td align="right">1.8385219</td>
+<td align="right">0.1590653</td>
 </tr>
 <tr class="even">
 <td align="left">Distance ~ Management</td>
@@ -998,10 +1003,39 @@
 <td align="right">0.3416107</td>
 <td align="right">NA</td>
 <td align="right">1.9237896</td>
+<td align="right">0.1524263</td>
 </tr>
 </tbody>
 </table>
 <p>Note that the models in the table satisfy the criteria for maximum VIF and delta AICc as specified in the <code>select_models</code> function.</p>
+<div class="section level3">
+<h3 id="summary-weighted-by-aicc">Summary weighted by AICc<a class="anchor" aria-label="anchor" href="#summary-weighted-by-aicc"></a>
+</h3>
+<p>finally you can do a summarized r squared weighted by AICc using the <code>akaike_adjusted_rsq</code> function as seen bellow:</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/akaike_adjusted_rsq.html">akaike_adjusted_rsq</a></span><span class="op">(</span><span class="va">Selected</span><span class="op">)</span></span></code></pre></div>
+<p>which results in the following table:</p>
+<table class="table">
+<thead><tr class="header">
+<th align="left">Variable</th>
+<th align="right">Full_Akaike_Adjusted_RSq</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">A1</td>
+<td align="right">0.0487115</td>
+</tr>
+<tr class="even">
+<td align="left">Moisture</td>
+<td align="right">0.1603323</td>
+</tr>
+<tr class="odd">
+<td align="left">Management</td>
+<td align="right">NA</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
