@@ -12,7 +12,7 @@ select_models(df, delta_aicc = 2)
 \item{delta_aicc}{a numeric value specifying the maximum difference in AICc values allowed.}
 }
 \value{
-a data frame containing the selected models.
+a data frame containing the selected models and the AIC weights.
 }
 \description{
 This function selects models from a data frame based on the AICc and VIF values. Models with AICc greater than negative infinity and VIF less than or equal to 6 are considered. The difference in AICc values for each model is calculated with respect to the model with the minimum AICc. Models with a difference in AICc less than or equal to the specified delta_aicc value are selected.

@@ -1,6 +1,7 @@
 library(vegan)
 # Test that the function runs without errors
 test_that("filter_vif runs without errors", {
+  skip_on_cran()
   # Generate some test data
   data(dune)
   data(dune.env)
@@ -20,6 +21,7 @@ test_that("filter_vif runs without errors", {
 # Test that the function filters out models with high collinearity
 test_that("filter_vif filters out models with high collinearity", {
   # Generate some test data with high collinearity
+  skip_on_cran()
   set.seed(123)
   n <- 100
   x1 <- rnorm(n)
@@ -42,6 +44,7 @@ test_that("filter_vif filters out models with high collinearity", {
 
 # Test that the function flags models with high collinearity when filter = FALSE
 test_that("filter_vif flags models with high collinearity when filter = FALSE", {
+  skip_on_cran()
   # Generate some test data with high collinearity
   set.seed(123)
   n <- 100
@@ -65,6 +68,7 @@ test_that("filter_vif flags models with high collinearity when filter = FALSE", 
 
 # Test that the function handles missing values correctly
 test_that("filter_vif handles missing values correctly", {
+  skip_on_cran()
   # Generate some test data with missing values
   data(dune)
   data(dune.env)

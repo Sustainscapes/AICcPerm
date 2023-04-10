@@ -105,11 +105,11 @@ Next, we’ll generate all possible first-order models for this dataset:
 
 ``` r
 AllModels <- make_models(vars = c("A1", "Moisture", "Management", "Use", "Manure"))
-#> 1 of 5 ready 2023-04-09 20:25:44
-#> 2 of 5 ready 2023-04-09 20:25:48
-#> 3 of 5 ready 2023-04-09 20:25:52
-#> 4 of 5 ready 2023-04-09 20:25:56
-#> 5 of 5 ready 2023-04-09 20:25:59
+#> 1 of 5 ready 2023-04-10 05:34:05
+#> 2 of 5 ready 2023-04-10 05:34:11
+#> 3 of 5 ready 2023-04-10 05:34:17
+#> 4 of 5 ready 2023-04-10 05:34:23
+#> 5 of 5 ready 2023-04-10 05:34:27
 ```
 
 This results in 32 possible models, which are shown in the following
@@ -179,29 +179,29 @@ Fitted <- fit_models(all_forms = NonColinear,
 This results in a table of fitted models ordered by AICc, which is
 displayed below:
 
-| form                                         |  max_vif |       AICc |        A1 |  Moisture | Management |       Use |    Manure | Model |
-|:---------------------------------------------|---------:|-----------:|----------:|----------:|-----------:|----------:|----------:|------:|
-| Distance \~ Moisture                         | 0.000000 | -30.363195 |        NA | 0.4019903 |         NA |        NA |        NA |    NA |
-| Distance \~ A1                               | 0.000000 | -29.723474 | 0.1681666 |        NA |         NA |        NA |        NA |    NA |
-| Distance \~ 1                                | 0.000000 | -28.524673 |        NA |        NA |         NA |        NA |        NA |     0 |
-| Distance \~ Management                       | 0.000000 | -28.439405 |        NA |        NA |  0.3416107 |        NA |        NA |    NA |
-| Distance \~ A1 + Moisture                    | 3.000000 | -28.211489 | 0.0423034 | 0.2761272 |         NA |        NA |        NA |    NA |
-| Distance \~ A1 + Management                  | 3.000000 | -28.206906 | 0.1025557 |        NA |  0.2759998 |        NA |        NA |    NA |
-| Distance \~ A1 + Use                         | 2.000000 | -27.243308 | 0.1723656 |        NA |         NA | 0.1328680 |        NA |    NA |
-| Distance \~ Moisture + Use                   | 3.000000 | -26.706730 |        NA | 0.3850987 |         NA | 0.1117773 |        NA |    NA |
-| Distance \~ Moisture + Management            | 3.000000 | -26.219635 |        NA | 0.2678801 |  0.2075005 |        NA |        NA |    NA |
-| Distance \~ Use                              | 0.000000 | -26.001561 |        NA |        NA |         NA | 0.1286690 |        NA |    NA |
-| Distance \~ Manure                           | 0.000000 | -25.214897 |        NA |        NA |         NA |        NA | 0.3544714 |    NA |
-| Distance \~ A1 + Manure                      | 4.000000 | -25.187448 | 0.1209209 |        NA |         NA |        NA | 0.3072258 |    NA |
-| Distance \~ A1 + Moisture + Use              | 3.000000 | -24.004036 | 0.0499753 | 0.2627084 |         NA | 0.1194492 |        NA |    NA |
-| Distance \~ Management + Use                 | 3.000000 | -23.493146 |        NA |        NA |  0.3003444 | 0.0874027 |        NA |    NA |
-| Distance \~ Moisture + Manure                | 4.000000 | -22.939843 |        NA | 0.3005223 |         NA |        NA | 0.2530035 |    NA |
-| Distance \~ A1 + Moisture + Management       | 3.000000 | -22.910428 | 0.0449952 | 0.2103196 |  0.2101923 |        NA |        NA |    NA |
-| Distance \~ A1 + Management + Use            | 3.000000 | -21.475776 | 0.0759437 |        NA |  0.2039225 | 0.0607907 |        NA |    NA |
-| Distance \~ Use + Manure                     | 4.000000 | -19.071272 |        NA |        NA |         NA | 0.0872434 | 0.3130459 |    NA |
-| Distance \~ A1 + Moisture + Manure           | 4.508169 | -18.590778 | 0.0414517 | 0.2210532 |         NA |        NA | 0.2521518 |    NA |
-| Distance \~ Moisture + Management + Use      | 3.648562 | -15.655183 |        NA | 0.2194405 |  0.1346862 | 0.0389631 |        NA |    NA |
-| Distance \~ A1 + Moisture + Management + Use | 4.710040 |  -8.837299 | 0.0274588 | 0.1709557 |  0.1121697 | 0.0214267 |        NA |    NA |
+| form                                         |  max_vif |       AICc |   k |   N |        A1 |  Moisture | Management |       Use |    Manure | Model |
+|:---------------------------------------------|---------:|-----------:|----:|----:|----------:|----------:|-----------:|----------:|----------:|------:|
+| Distance \~ Moisture                         | 0.000000 | -30.363195 |   4 |  20 |        NA | 0.4019903 |         NA |        NA |        NA |    NA |
+| Distance \~ A1                               | 0.000000 | -29.723474 |   2 |  20 | 0.1681666 |        NA |         NA |        NA |        NA |    NA |
+| Distance \~ 1                                | 0.000000 | -28.524673 |   1 |  20 |        NA |        NA |         NA |        NA |        NA |     0 |
+| Distance \~ Management                       | 0.000000 | -28.439405 |   4 |  20 |        NA |        NA |  0.3416107 |        NA |        NA |    NA |
+| Distance \~ A1 + Moisture                    | 3.000000 | -28.211489 |   5 |  20 | 0.0423034 | 0.2761272 |         NA |        NA |        NA |    NA |
+| Distance \~ A1 + Management                  | 3.000000 | -28.206906 |   5 |  20 | 0.1025557 |        NA |  0.2759998 |        NA |        NA |    NA |
+| Distance \~ A1 + Use                         | 2.000000 | -27.243308 |   4 |  20 | 0.1723656 |        NA |         NA | 0.1328680 |        NA |    NA |
+| Distance \~ Moisture + Use                   | 3.000000 | -26.706730 |   6 |  20 |        NA | 0.3850987 |         NA | 0.1117773 |        NA |    NA |
+| Distance \~ Moisture + Management            | 3.000000 | -26.219635 |   7 |  20 |        NA | 0.2678801 |  0.2075005 |        NA |        NA |    NA |
+| Distance \~ Use                              | 0.000000 | -26.001561 |   3 |  20 |        NA |        NA |         NA | 0.1286690 |        NA |    NA |
+| Distance \~ Manure                           | 0.000000 | -25.214897 |   5 |  20 |        NA |        NA |         NA |        NA | 0.3544714 |    NA |
+| Distance \~ A1 + Manure                      | 4.000000 | -25.187448 |   6 |  20 | 0.1209209 |        NA |         NA |        NA | 0.3072258 |    NA |
+| Distance \~ A1 + Moisture + Use              | 3.000000 | -24.004036 |   7 |  20 | 0.0499753 | 0.2627084 |         NA | 0.1194492 |        NA |    NA |
+| Distance \~ Management + Use                 | 3.000000 | -23.493146 |   6 |  20 |        NA |        NA |  0.3003444 | 0.0874027 |        NA |    NA |
+| Distance \~ Moisture + Manure                | 4.000000 | -22.939843 |   8 |  20 |        NA | 0.3005223 |         NA |        NA | 0.2530035 |    NA |
+| Distance \~ A1 + Moisture + Management       | 3.000000 | -22.910428 |   8 |  20 | 0.0449952 | 0.2103196 |  0.2101923 |        NA |        NA |    NA |
+| Distance \~ A1 + Management + Use            | 3.000000 | -21.475776 |   7 |  20 | 0.0759437 |        NA |  0.2039225 | 0.0607907 |        NA |    NA |
+| Distance \~ Use + Manure                     | 4.000000 | -19.071272 |   7 |  20 |        NA |        NA |         NA | 0.0872434 | 0.3130459 |    NA |
+| Distance \~ A1 + Moisture + Manure           | 4.508169 | -18.590778 |   9 |  20 | 0.0414517 | 0.2210532 |         NA |        NA | 0.2521518 |    NA |
+| Distance \~ Moisture + Management + Use      | 3.648562 | -15.655183 |   9 |  20 |        NA | 0.2194405 |  0.1346862 | 0.0389631 |        NA |    NA |
+| Distance \~ A1 + Moisture + Management + Use | 4.710040 |  -8.837299 |  10 |  20 | 0.0274588 | 0.1709557 |  0.1121697 | 0.0214267 |        NA |    NA |
 
 If there is a block variable to be used (such as Use in the dune.env
 object), you can specify it using the strata argument:
@@ -218,29 +218,29 @@ Fitted2 <- fit_models(all_forms = NonColinear,
 This results in a table of fitted models that takes into account the
 block variable, which is displayed below:
 
-| form                                         |  max_vif |       AICc |        A1 |  Moisture | Management |       Use |    Manure | Model |
-|:---------------------------------------------|---------:|-----------:|----------:|----------:|-----------:|----------:|----------:|------:|
-| Distance \~ Moisture                         | 0.000000 | -30.363195 |        NA | 0.4019903 |         NA |        NA |        NA |    NA |
-| Distance \~ A1                               | 0.000000 | -29.723474 | 0.1681666 |        NA |         NA |        NA |        NA |    NA |
-| Distance \~ 1                                | 0.000000 | -28.524673 |        NA |        NA |         NA |        NA |        NA |     0 |
-| Distance \~ Management                       | 0.000000 | -28.439405 |        NA |        NA |  0.3416107 |        NA |        NA |    NA |
-| Distance \~ A1 + Moisture                    | 3.000000 | -28.211489 | 0.0423034 | 0.2761272 |         NA |        NA |        NA |    NA |
-| Distance \~ A1 + Management                  | 3.000000 | -28.206906 | 0.1025557 |        NA |  0.2759998 |        NA |        NA |    NA |
-| Distance \~ A1 + Use                         | 2.000000 | -27.243308 | 0.1723656 |        NA |         NA | 0.1328680 |        NA |    NA |
-| Distance \~ Moisture + Use                   | 3.000000 | -26.706730 |        NA | 0.3850987 |         NA | 0.1117773 |        NA |    NA |
-| Distance \~ Moisture + Management            | 3.000000 | -26.219635 |        NA | 0.2678801 |  0.2075005 |        NA |        NA |    NA |
-| Distance \~ Use                              | 0.000000 | -26.001561 |        NA |        NA |         NA | 0.1286690 |        NA |    NA |
-| Distance \~ Manure                           | 0.000000 | -25.214897 |        NA |        NA |         NA |        NA | 0.3544714 |    NA |
-| Distance \~ A1 + Manure                      | 4.000000 | -25.187448 | 0.1209209 |        NA |         NA |        NA | 0.3072258 |    NA |
-| Distance \~ A1 + Moisture + Use              | 3.000000 | -24.004036 | 0.0499753 | 0.2627084 |         NA | 0.1194492 |        NA |    NA |
-| Distance \~ Management + Use                 | 3.000000 | -23.493146 |        NA |        NA |  0.3003444 | 0.0874027 |        NA |    NA |
-| Distance \~ Moisture + Manure                | 4.000000 | -22.939843 |        NA | 0.3005223 |         NA |        NA | 0.2530035 |    NA |
-| Distance \~ A1 + Moisture + Management       | 3.000000 | -22.910428 | 0.0449952 | 0.2103196 |  0.2101923 |        NA |        NA |    NA |
-| Distance \~ A1 + Management + Use            | 3.000000 | -21.475776 | 0.0759437 |        NA |  0.2039225 | 0.0607907 |        NA |    NA |
-| Distance \~ Use + Manure                     | 4.000000 | -19.071272 |        NA |        NA |         NA | 0.0872434 | 0.3130459 |    NA |
-| Distance \~ A1 + Moisture + Manure           | 4.508169 | -18.590778 | 0.0414517 | 0.2210532 |         NA |        NA | 0.2521518 |    NA |
-| Distance \~ Moisture + Management + Use      | 3.648562 | -15.655183 |        NA | 0.2194405 |  0.1346862 | 0.0389631 |        NA |    NA |
-| Distance \~ A1 + Moisture + Management + Use | 4.710040 |  -8.837299 | 0.0274588 | 0.1709557 |  0.1121697 | 0.0214267 |        NA |    NA |
+| form                                         |  max_vif |       AICc |   k |   N |        A1 |  Moisture | Management |       Use |    Manure | Model |
+|:---------------------------------------------|---------:|-----------:|----:|----:|----------:|----------:|-----------:|----------:|----------:|------:|
+| Distance \~ Moisture                         | 0.000000 | -30.363195 |   4 |  20 |        NA | 0.4019903 |         NA |        NA |        NA |    NA |
+| Distance \~ A1                               | 0.000000 | -29.723474 |   2 |  20 | 0.1681666 |        NA |         NA |        NA |        NA |    NA |
+| Distance \~ 1                                | 0.000000 | -28.524673 |   1 |  20 |        NA |        NA |         NA |        NA |        NA |     0 |
+| Distance \~ Management                       | 0.000000 | -28.439405 |   4 |  20 |        NA |        NA |  0.3416107 |        NA |        NA |    NA |
+| Distance \~ A1 + Moisture                    | 3.000000 | -28.211489 |   5 |  20 | 0.0423034 | 0.2761272 |         NA |        NA |        NA |    NA |
+| Distance \~ A1 + Management                  | 3.000000 | -28.206906 |   5 |  20 | 0.1025557 |        NA |  0.2759998 |        NA |        NA |    NA |
+| Distance \~ A1 + Use                         | 2.000000 | -27.243308 |   4 |  20 | 0.1723656 |        NA |         NA | 0.1328680 |        NA |    NA |
+| Distance \~ Moisture + Use                   | 3.000000 | -26.706730 |   6 |  20 |        NA | 0.3850987 |         NA | 0.1117773 |        NA |    NA |
+| Distance \~ Moisture + Management            | 3.000000 | -26.219635 |   7 |  20 |        NA | 0.2678801 |  0.2075005 |        NA |        NA |    NA |
+| Distance \~ Use                              | 0.000000 | -26.001561 |   3 |  20 |        NA |        NA |         NA | 0.1286690 |        NA |    NA |
+| Distance \~ Manure                           | 0.000000 | -25.214897 |   5 |  20 |        NA |        NA |         NA |        NA | 0.3544714 |    NA |
+| Distance \~ A1 + Manure                      | 4.000000 | -25.187448 |   6 |  20 | 0.1209209 |        NA |         NA |        NA | 0.3072258 |    NA |
+| Distance \~ A1 + Moisture + Use              | 3.000000 | -24.004036 |   7 |  20 | 0.0499753 | 0.2627084 |         NA | 0.1194492 |        NA |    NA |
+| Distance \~ Management + Use                 | 3.000000 | -23.493146 |   6 |  20 |        NA |        NA |  0.3003444 | 0.0874027 |        NA |    NA |
+| Distance \~ Moisture + Manure                | 4.000000 | -22.939843 |   8 |  20 |        NA | 0.3005223 |         NA |        NA | 0.2530035 |    NA |
+| Distance \~ A1 + Moisture + Management       | 3.000000 | -22.910428 |   8 |  20 | 0.0449952 | 0.2103196 |  0.2101923 |        NA |        NA |    NA |
+| Distance \~ A1 + Management + Use            | 3.000000 | -21.475776 |   7 |  20 | 0.0759437 |        NA |  0.2039225 | 0.0607907 |        NA |    NA |
+| Distance \~ Use + Manure                     | 4.000000 | -19.071272 |   7 |  20 |        NA |        NA |         NA | 0.0872434 | 0.3130459 |    NA |
+| Distance \~ A1 + Moisture + Manure           | 4.508169 | -18.590778 |   9 |  20 | 0.0414517 | 0.2210532 |         NA |        NA | 0.2521518 |    NA |
+| Distance \~ Moisture + Management + Use      | 3.648562 | -15.655183 |   9 |  20 |        NA | 0.2194405 |  0.1346862 | 0.0389631 |        NA |    NA |
+| Distance \~ A1 + Moisture + Management + Use | 4.710040 |  -8.837299 |  10 |  20 | 0.0274588 | 0.1709557 |  0.1121697 | 0.0214267 |        NA |    NA |
 
 ## Model Selection
 
@@ -257,12 +257,12 @@ Selected <- select_models(Fitted2)
 
 The resulting table displays the selected models:
 
-| form                   | max_vif |      AICc |        A1 |  Moisture | Management | Model | DeltaAICc |
-|:-----------------------|--------:|----------:|----------:|----------:|-----------:|------:|----------:|
-| Distance \~ Moisture   |       0 | -30.36319 |        NA | 0.4019903 |         NA |    NA | 0.0000000 |
-| Distance \~ A1         |       0 | -29.72347 | 0.1681666 |        NA |         NA |    NA | 0.6397207 |
-| Distance \~ 1          |       0 | -28.52467 |        NA |        NA |         NA |     0 | 1.8385219 |
-| Distance \~ Management |       0 | -28.43941 |        NA |        NA |  0.3416107 |    NA | 1.9237896 |
+| form                   | max_vif |      AICc |   k |   N |        A1 |  Moisture | Management | Model | DeltaAICc |
+|:-----------------------|--------:|----------:|----:|----:|----------:|----------:|-----------:|------:|----------:|
+| Distance \~ Moisture   |       0 | -30.36319 |   4 |  20 |        NA | 0.4019903 |         NA |    NA | 0.0000000 |
+| Distance \~ A1         |       0 | -29.72347 |   2 |  20 | 0.1681666 |        NA |         NA |    NA | 0.6397207 |
+| Distance \~ 1          |       0 | -28.52467 |   1 |  20 |        NA |        NA |         NA |     0 | 1.8385219 |
+| Distance \~ Management |       0 | -28.43941 |   4 |  20 |        NA |        NA |  0.3416107 |    NA | 1.9237896 |
 
 Note that the models in the table satisfy the criteria for maximum VIF
 and delta AICc as specified in the `select_models` function.

@@ -4,7 +4,7 @@
 #'
 #' @param df a data frame containing the models to select from.
 #' @param delta_aicc a numeric value specifying the maximum difference in AICc values allowed.
-#' @return a data frame containing the selected models.
+#' @return a data frame containing the selected models and the AIC weights.
 #' @examples
 #' df <- data.frame(AICc = c(10, 12, 15, 20), max_vif = c(2, 4, 5, 6))
 #' select_models(df)
@@ -13,9 +13,9 @@
 #' @export
 
 select_models <- function(df, delta_aicc = 2){
-  AICc <- DeltaAICc <- max_vif <- NULL
+  AICc <- DeltaAICc <- max_vif <- AICWeight <- NULL
   Result <- data.table::setDT(df)[AICc > -Inf & max_vif <= 5,
-                      DeltaAICc := AICc - min(AICc)][DeltaAICc <= delta_aicc] |>
+                      DeltaAICc := AICc - min(AICc)][DeltaAICc <= delta_aicc][, AICWeight := exp( -0.5*DeltaAICc)/sum(exp( -0.5*DeltaAICc))] |>
     as.data.frame()
   # remove columns with only NAs
   Result <- Result[, colSums(is.na(Result)) != nrow(Result), drop = FALSE]

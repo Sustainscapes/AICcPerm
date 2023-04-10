@@ -65,7 +65,6 @@ fit_models <- function(all_forms,
   }
 
   meta_data <- all_forms
-  meta_data$AICc <- NA
   if(!("max_vif" %in% colnames(meta_data))){
     meta_data$max_vif <- NA
   }
@@ -113,8 +112,8 @@ fit_models <- function(all_forms,
 
 
 
-      Temp$AICc <- tryCatch(
-        expr = AICcPermanova::AICc_permanova2(Model)$AICc,
+      Temp <- tryCatch(
+        expr = cbind(Temp, AICcPermanova::AICc_permanova2(Model)),
         error = function(e) NA
       )
 
