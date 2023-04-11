@@ -42,7 +42,13 @@ Alternatively, you can install the stable version from CRAN:
 install.packages("AICcPermanova")
 ```
 
-## 3.1 Generating all possible models
+## 3.1 Contribuiting to this package
+
+Please note that this package is released with a [Contributor Code of
+Conduct](https://ropensci.org/code-of-conduct/). By contributing to this
+project, you agree to abide by its terms.
+
+## 3.2 Generating all possible models
 
 To generate all possible models, you can use the `make_models` function.
 For example:
@@ -68,13 +74,12 @@ specified variables, which you can see in the following table:
 
 Where you can see all possible models for those 3 variables.
 
-## 3.2 Calculating AICc
+## 3.3 Calculating AICc
 
 To calculate AICc, you can use the AICc_permanova2 function. Here’s an
 example of how to use it:
 
 ``` r
-
 library(vegan)
 #> Loading required package: permute
 #> Loading required package: lattice
@@ -84,7 +89,7 @@ data(dune.env)
 
 # Run PERMANOVA using adonis2
 
-Model <- adonis2(dune ~ Management*A1, data = dune.env)
+Model <- adonis2(dune ~ Management * A1, data = dune.env)
 
 # Calculate AICc
 Table_permanova <- AICc_permanova2(Model)
@@ -104,7 +109,7 @@ In this example, we used the adonis2 function to run a PERMANOVA
 analysis on the dune dataset with the Management and A1 variables. We
 then calculated AICc using the AICc_permanova2 function
 
-## 3.3 Full example
+## 3.4 Full example
 
 In this section, we’ll provide a complete example of the AICcPerm
 package workflow. First, we need to load datasets from the vegan
@@ -120,11 +125,11 @@ Next, we’ll generate all possible first-order models for this dataset:
 
 ``` r
 AllModels <- make_models(vars = c("A1", "Moisture", "Management", "Use", "Manure"))
-#> 1 of 5 ready 2023-04-10 13:28:11
-#> 2 of 5 ready 2023-04-10 13:28:15
-#> 3 of 5 ready 2023-04-10 13:28:19
-#> 4 of 5 ready 2023-04-10 13:28:23
-#> 5 of 5 ready 2023-04-10 13:28:26
+#> 1 of 5 ready 2023-04-11 04:41:31
+#> 2 of 5 ready 2023-04-11 04:41:37
+#> 3 of 5 ready 2023-04-11 04:41:43
+#> 4 of 5 ready 2023-04-11 04:41:49
+#> 5 of 5 ready 2023-04-11 04:41:52
 ```
 
 This results in 32 possible models, which are shown in the following
@@ -165,7 +170,7 @@ table:
 | Distance \~ A1 + Moisture + Management + Use + Manure |
 | Distance \~ 1                                         |
 
-### 3.3.1 Avoiding multicollinearity
+### 3.4.1 Avoiding multicollinearity
 
 After generating all the models, it’s important to check for
 multicollinearity. We can use the `filter_vif` function to filter out
@@ -178,17 +183,19 @@ NonColinear <- filter_vif(all_forms = AllModels, env_data = dune.env)
 
 This reduces the number of models to 21
 
-### 3.3.2 Fittng the models
+### 3.4.2 Fittng the models
 
 After filtering out collinear models, we can fit all the remaining
 non-collinear models by using the `fit_models` function:
 
 ``` r
-Fitted <- fit_models(all_forms = NonColinear,
-           veg_data = dune,
-           env_data = dune.env,
-           ncores = 4,
-           method = "bray")
+Fitted <- fit_models(
+  all_forms = NonColinear,
+  veg_data = dune,
+  env_data = dune.env,
+  ncores = 4,
+  method = "bray"
+)
 ```
 
 This results in a table of fitted models ordered by AICc, which is
@@ -222,12 +229,14 @@ If there is a block variable to be used (such as Use in the dune.env
 object), you can specify it using the strata argument:
 
 ``` r
-Fitted2 <- fit_models(all_forms = NonColinear,
-           veg_data = dune,
-           env_data = dune.env,
-           ncores = 4,
-           method = "bray",
-           strata = "Use")
+Fitted2 <- fit_models(
+  all_forms = NonColinear,
+  veg_data = dune,
+  env_data = dune.env,
+  ncores = 4,
+  method = "bray",
+  strata = "Use"
+)
 ```
 
 This results in a table of fitted models that takes into account the
@@ -257,7 +266,7 @@ block variable, which is displayed below:
 | Distance \~ Moisture + Management + Use      | 3.648562 | -15.655183 |   9 |  20 |        NA | 0.2194405 |  0.1346862 | 0.0389631 |        NA |    NA |
 | Distance \~ A1 + Moisture + Management + Use | 4.710040 |  -8.837299 |  10 |  20 | 0.0274588 | 0.1709557 |  0.1121697 | 0.0214267 |        NA |    NA |
 
-## 3.4 Model Selection
+## 3.5 Model Selection
 
 To select models, we use the select_models function, which chooses
 models with a maximum VIF of less than 5 and a delta AICc less than a
@@ -282,7 +291,7 @@ The resulting table displays the selected models:
 Note that the models in the table satisfy the criteria for maximum VIF
 and delta AICc as specified in the `select_models` function.
 
-### 3.4.1 Summary weighted by AICc
+### 3.5.1 Summary weighted by AICc
 
 finally you can do a summarized r squared weighted by AICc using the
 `akaike_adjusted_rsq` function as seen bellow:

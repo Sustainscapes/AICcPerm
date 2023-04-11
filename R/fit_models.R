@@ -173,6 +173,11 @@ fit_models <- function(all_forms,
 #'
 #' @return The maximum VIF value.
 #'
+#' @examples
+#'
+#' data("mtcars")
+#' VIF(lm(mpg ~ ., data = mtcars))
+#'
 #' @references
 #' - Belsley, D. A., Kuh, E., & Welsch, R. E. (1980). Regression Diagnostics: Identifying Influential Data and Sources of Collinearity. John Wiley & Sons.
 #' - Kutner, M. H., Nachtsheim, C. J., Neter, J., & Li, W. (2004). Applied Linear Statistical Models. McGraw-Hill/Irwin.
