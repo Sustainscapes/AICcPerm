@@ -30,7 +30,7 @@ data(dune.env)
 
 # Run PERMANOVA using adonis2
 
-Model <- adonis2(dune ~ Management*A1, data = dune.env)
+Model <- adonis2(dune ~ Management * A1, data = dune.env)
 
 # Calculate AICc
 AICc_permanova2(Model)

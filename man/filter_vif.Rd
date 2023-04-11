@@ -33,7 +33,9 @@ data(dune)
 data(dune.env)
 AllModels <- make_models(vars = c("A1", "Moisture", "Manure"))
 
-filter_vif(all_forms = AllModels,
-           env_data = dune.env)
+filter_vif(
+  all_forms = AllModels,
+  env_data = dune.env
+)
 }
 }

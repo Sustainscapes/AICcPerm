@@ -30,12 +30,16 @@ fitting using a PERMANOVA approach.
 }
 \examples{
 \donttest{
-make_models(vars = c("A", "B", "C", "D"),
-            ncores = 2, verbose = FALSE)
+make_models(
+  vars = c("A", "B", "C", "D"),
+  ncores = 2, verbose = FALSE
+)
 
 # using k as a way to limit number of variables
-make_models(vars = c("A", "B", "C", "D"),
-            ncores = 2, k = 2, verbose = FALSE)
+make_models(
+  vars = c("A", "B", "C", "D"),
+  ncores = 2, k = 2, verbose = FALSE
+)
 }
 }
 \references{

@@ -12,10 +12,12 @@
 #' @importFrom data.table setDT .SD
 #' @export
 
-select_models <- function(df, delta_aicc = 2){
+select_models <- function(df, delta_aicc = 2) {
   AICc <- DeltaAICc <- max_vif <- AICWeight <- NULL
-  Result <- data.table::setDT(df)[AICc > -Inf & max_vif <= 5,
-                      DeltaAICc := AICc - min(AICc)][DeltaAICc <= delta_aicc][, AICWeight := exp( -0.5*DeltaAICc)/sum(exp( -0.5*DeltaAICc))] |>
+  Result <- data.table::setDT(df)[
+    AICc > -Inf & max_vif <= 5,
+    DeltaAICc := AICc - min(AICc)
+  ][DeltaAICc <= delta_aicc][, AICWeight := exp(-0.5 * DeltaAICc) / sum(exp(-0.5 * DeltaAICc))] |>
     as.data.frame()
   # remove columns with only NAs
   Result <- Result[, colSums(is.na(Result)) != nrow(Result), drop = FALSE]

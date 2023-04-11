@@ -46,7 +46,6 @@ explanatory variables, R2, adjusted R2, and the AICc and max VIF.
 This function fits PERMANOVA models for all combinations of variables in a given dataset, and arranges the models by Akaike Information Criterion (AICc) score. The function also calculates the maximum variance inflation factor (max_vif) for each model.
 }
 \examples{
-
 \donttest{
 library(vegan)
 data(dune)
@@ -54,9 +53,11 @@ data(dune.env)
 
 AllModels <- make_models(vars = c("A1", "Moisture", "Manure"))
 
-fit_models(all_forms = AllModels,
-           veg_data = dune,
-           env_data = dune.env)
+fit_models(
+  all_forms = AllModels,
+  veg_data = dune,
+  env_data = dune.env
+)
 }
 
 }

@@ -25,13 +25,17 @@
 #'
 #' @examples
 #' \donttest{
-#' make_models(vars = c("A", "B", "C", "D"),
-#'             ncores = 2, verbose = FALSE)
+#' make_models(
+#'   vars = c("A", "B", "C", "D"),
+#'   ncores = 2, verbose = FALSE
+#' )
 #'
 #' # using k as a way to limit number of variables
-#' make_models(vars = c("A", "B", "C", "D"),
-#'             ncores = 2, k = 2, verbose = FALSE)
-#'}
+#' make_models(
+#'   vars = c("A", "B", "C", "D"),
+#'   ncores = 2, k = 2, verbose = FALSE
+#' )
+#' }
 #' @references
 #' Anderson, M. J. (2001). A new method for non-parametric multivariate analysis of variance. Austral Ecology, 26(1), 32-46.
 
@@ -47,16 +51,16 @@ make_models <- function(vars, ncores = 2, k = NULL, verbose = TRUE) {
 
   forms <- list()
 
-  if(is.null(k)){
+  if (is.null(k)) {
     MaxVars <- length(vars)
   }
 
-  if(!is.null(k)){
+  if (!is.null(k)) {
     MaxVars <- k
   }
 
   # loop over different numbers of variables to include in models
-  for(i in 1:MaxVars) {
+  for (i in 1:MaxVars) {
     test <- combn(vars, i, simplify = FALSE)
     cl <- parallel::makeCluster(ncores)
     future::plan(future::cluster, workers = cl)
@@ -67,7 +71,7 @@ make_models <- function(vars, ncores = 2, k = NULL, verbose = TRUE) {
       data.frame(form = form, stringsAsFactors = FALSE)
     })
     parallel::stopCluster(cl)
-    if(verbose){
+    if (verbose) {
       message(paste(i, "of", MaxVars, "ready", Sys.time()))
     }
     forms[[i]] <- formulas
@@ -81,4 +85,3 @@ make_models <- function(vars, ncores = 2, k = NULL, verbose = TRUE) {
 
   return(as.data.frame(all_forms))
 }
-

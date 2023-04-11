@@ -27,7 +27,6 @@
 #' @importFrom stringr str_replace_all
 #' @importFrom stats rnorm lm as.formula complete.cases
 #' @examples
-#'
 #' \donttest{
 #' library(vegan)
 #' data(dune)
@@ -35,9 +34,11 @@
 #'
 #' AllModels <- make_models(vars = c("A1", "Moisture", "Manure"))
 #'
-#' fit_models(all_forms = AllModels,
-#'            veg_data = dune,
-#'            env_data = dune.env)
+#' fit_models(
+#'   all_forms = AllModels,
+#'   veg_data = dune,
+#'   env_data = dune.env
+#' )
 #' }
 #'
 #' @references
@@ -56,25 +57,25 @@ fit_models <- function(all_forms,
                        logfile = "log.txt",
                        multiple = 100,
                        strata = NULL,
-                       verbose = FALSE){
+                       verbose = FALSE) {
   AICc <- R2 <- term <- x <- NULL
-  if(log){
-    if(file.exists(logfile)){
+  if (log) {
+    if (file.exists(logfile)) {
       file.remove(logfile)
     }
   }
 
   meta_data <- all_forms
-  if(!("max_vif" %in% colnames(meta_data))){
+  if (!("max_vif" %in% colnames(meta_data))) {
     meta_data$max_vif <- NA
   }
-  vegetation_data = veg_data
+  vegetation_data <- veg_data
 
   # Check for missing values
   missing_rows <- !complete.cases(env_data)
 
   if (any(missing_rows)) {
-    if(verbose){
+    if (verbose) {
       # Print message about missing rows and columns
       message(sprintf("Removing %d rows with missing values\n", sum(missing_rows)))
       message("Columns with missing values: ")
@@ -93,70 +94,67 @@ fit_models <- function(all_forms,
   Distance <- vegan::vegdist(vegetation_data, method = method)
 
   Fs <- foreach(x = 1:nrow(meta_data), .packages = c("vegan", "dplyr", "AICcPermanova", "tidyr", "broom"), .combine = bind_rows, .export = c("Distance")) %dopar% {
+    Response <- new_env_data
+    Response$y <- rnorm(n = nrow(Response))
+    gc()
 
-      Response = new_env_data
-      Response$y <- rnorm(n = nrow(Response))
-      gc()
+    Temp <- meta_data[x, ]
 
-      Temp <- meta_data[x,]
+    if (is.null(strata)) {
+      Model <- try(vegan::adonis2(as.formula(Temp$form[1]), data = Response, by = "margin"))
+    }
 
-      if(is.null(strata)){
-        Model <- try(vegan::adonis2(as.formula(Temp$form[1]), data = Response, by = "margin"))
-      }
-
-      if(!is.null(strata)){
-        # Convert strata variable to factor
-        strata_factor <- factor(Response[[strata]])
-        Model <- try(with(Response, vegan::adonis2(as.formula(Temp$form[1]), data = Response, by = "margin", strata = strata_factor)), silent = TRUE)
-      }
-
+    if (!is.null(strata)) {
+      # Convert strata variable to factor
+      strata_factor <- factor(Response[[strata]])
+      Model <- try(with(Response, vegan::adonis2(as.formula(Temp$form[1]), data = Response, by = "margin", strata = strata_factor)), silent = TRUE)
+    }
 
 
-      Temp <- tryCatch(
-        expr = cbind(Temp, AICcPermanova::AICc_permanova2(Model)),
-        error = function(e) NA
-      )
+
+    Temp <- tryCatch(
+      expr = cbind(Temp, AICcPermanova::AICc_permanova2(Model)),
+      error = function(e) NA
+    )
 
 
-    if(is.na(Temp$max_vif)){
+    if (is.na(Temp$max_vif)) {
       Temp$max_vif <- tryCatch(
         expr = VIF(lm(as.formula(stringr::str_replace_all(Temp$form[1], "Distance ", "y")), data = Response)),
         error = function(e) NA
       )
-
     }
 
-      Rs <- tryCatch(
-        {
-          tidy_model <- broom::tidy(Model)
-          if (inherits(tidy_model, "try-error")) {
-            stop("Error occurred in broom::tidy(Model)")
-          }
-          tidy_model |>
-            dplyr::filter(!(term %in% c("Residual", "Total"))) |>
-            dplyr::select(term, R2) |>
-            tidyr::pivot_wider(names_from = term, values_from = R2)
-        },
-        error = function(e) {
-          message("Error: ", conditionMessage(e))
-          NULL
+    Rs <- tryCatch(
+      {
+        tidy_model <- broom::tidy(Model)
+        if (inherits(tidy_model, "try-error")) {
+          stop("Error occurred in broom::tidy(Model)")
         }
-      )
-
-
-      if(log){
-        if((x %% multiple) == 0){
-          sink(logfile, append = TRUE)
-          cat(paste("finished", x, "number of models", Sys.time(), "of",  nrow(meta_data)))
-          cat("\n")
-          sink()
-        }
-
+        tidy_model |>
+          dplyr::filter(!(term %in% c("Residual", "Total"))) |>
+          dplyr::select(term, R2) |>
+          tidyr::pivot_wider(names_from = term, values_from = R2)
+      },
+      error = function(e) {
+        message("Error: ", conditionMessage(e))
+        NULL
       }
+    )
 
-      Temp <- bind_cols(Temp, Rs)
-      Temp
+
+    if (log) {
+      if ((x %% multiple) == 0) {
+        sink(logfile, append = TRUE)
+        cat(paste("finished", x, "number of models", Sys.time(), "of", nrow(meta_data)))
+        cat("\n")
+        sink()
+      }
     }
+
+    Temp <- bind_cols(Temp, Rs)
+    Temp
+  }
   parallel::stopCluster(cl)
   Fs <- Fs |>
     dplyr::arrange(AICc)
@@ -187,16 +185,19 @@ fit_models <- function(all_forms,
 #' @export
 
 VIF <- function(model) {
-      tryCatch({
-         vif <- car::vif(model)
-         max(vif)
-       }, error = function(e) {
-         if (grepl("aliased coefficients", e$message)) {
-           20000
-         } else if (grepl("model contains fewer than 2 terms", e$message)) {
-           0
-         } else {
-           stop(e)
-         }
-       })
-     }
+  tryCatch(
+    {
+      vif <- car::vif(model)
+      max(vif)
+    },
+    error = function(e) {
+      if (grepl("aliased coefficients", e$message)) {
+        20000
+      } else if (grepl("model contains fewer than 2 terms", e$message)) {
+        0
+      } else {
+        stop(e)
+      }
+    }
+  )
+}

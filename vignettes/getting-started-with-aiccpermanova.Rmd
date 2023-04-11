@@ -42,7 +42,7 @@ To generate all possible models, you can use the `make_models` function. For exa
 
 ```{r examplemakemodels, results='hide', message=FALSE}
 library(AICcPermanova)
-AllModels <- make_models(vars = c("pH", "Sand", "Clay"), ncores = 2)
+AllModels <- make_models(vars = c("pH", "Sand", "Clay"), ncores = 1)
 ```
 
 This function will create a table of all possible models for the specified variables, which you can see in the following table:
@@ -58,14 +58,13 @@ Where you can see all possible models for those 3 variables.
 To calculate AICc, you can use the AICc_permanova2 function. Here's an example of how to use it:
 
 ```{r}
-
 library(vegan)
 data(dune)
 data(dune.env)
 
 # Run PERMANOVA using adonis2
 
-Model <- adonis2(dune ~ Management*A1, data = dune.env)
+Model <- adonis2(dune ~ Management * A1, data = dune.env)
 
 # Calculate AICc
 Table_permanova <- AICc_permanova2(Model)
@@ -92,7 +91,7 @@ data(dune.env)
 Next, we'll generate all possible first-order models for this dataset:
 
 ```{r, results='hide'}
-AllModels <- make_models(vars = c("A1", "Moisture", "Management", "Use", "Manure"))
+AllModels <- make_models(vars = c("A1", "Moisture", "Management", "Use", "Manure"), ncores = 1)
 ```
 
 This results in `r nrow(AllModels)` possible models, which are shown in the following table:
@@ -105,7 +104,7 @@ knitr::kable(AllModels)
 After generating all the models, it's important to check for multicollinearity. We can use the `filter_vif` function to filter out models that have a high degree of collinearity (defined as having a maximum value of VIF of 5 or more):
 
 ```{r}
-NonColinear <- filter_vif(all_forms = AllModels, env_data = dune.env)
+NonColinear <- filter_vif(all_forms = AllModels, env_data = dune.env, ncores = 1)
 ```
 
 This reduces the number of models to `r nrow(NonColinear)`
@@ -115,11 +114,13 @@ This reduces the number of models to `r nrow(NonColinear)`
 After filtering out collinear models, we can fit all the remaining non-collinear models by using the `fit_models` function:
 
 ```{r}
-Fitted <- fit_models(all_forms = NonColinear,
-           veg_data = dune,
-           env_data = dune.env,
-           ncores = 4,
-           method = "bray")
+Fitted <- fit_models(
+  all_forms = NonColinear,
+  veg_data = dune,
+  env_data = dune.env,
+  ncores = 1,
+  method = "bray"
+)
 ```
 
 This results in a table of fitted models ordered by AICc, which is displayed below:
@@ -131,12 +132,14 @@ knitr::kable(Fitted)
 If there is a block variable to be used (such as Use in the dune.env object), you can specify it using the strata argument:
 
 ```{r fitwihtstrata}
-Fitted2 <- fit_models(all_forms = NonColinear,
-           veg_data = dune,
-           env_data = dune.env,
-           ncores = 4,
-           method = "bray",
-           strata = "Use")
+Fitted2 <- fit_models(
+  all_forms = NonColinear,
+  veg_data = dune,
+  env_data = dune.env,
+  ncores = 1,
+  method = "bray",
+  strata = "Use"
+)
 ```
 
 This results in a table of fitted models that takes into account the block variable, which is displayed below:

@@ -39,16 +39,18 @@ adjusted R squared.
 }
 \examples{
 library(data.table)
-df <- data.table(form = c(1,2,3),
-                 AICc = c(10,20,30),
-                 max_vif = c(3,4,5),
-                 k = c(1,2,3),
-                 DeltaAICc = c(2,5,8),
-                 AICWeight = c(0.2,0.5,0.3),
-                 N = c(100,100,100),
-                 A1 = c(0.3, 0.5, NA),
-                 A2 = c(0.7, NA, 0.2),
-                 A3 = c(0.2, 0.3, 0.6))
+df <- data.table(
+  form = c(1, 2, 3),
+  AICc = c(10, 20, 30),
+  max_vif = c(3, 4, 5),
+  k = c(1, 2, 3),
+  DeltaAICc = c(2, 5, 8),
+  AICWeight = c(0.2, 0.5, 0.3),
+  N = c(100, 100, 100),
+  A1 = c(0.3, 0.5, NA),
+  A2 = c(0.7, NA, 0.2),
+  A3 = c(0.2, 0.3, 0.6)
+)
 akaike_adjusted_rsq(df)
 
 }

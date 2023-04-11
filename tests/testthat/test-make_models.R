@@ -1,4 +1,3 @@
-
 test_that("make_models correctly generates models with intercepts", {
   skip_on_cran()
   vars <- c("A", "B", "C", "D")
@@ -21,6 +20,3 @@ test_that("make_models verbose flag works as expected", {
   expect_equal(nrow(result), 11)
   expect_equal(ncol(result), 1)
 })
-
-
-

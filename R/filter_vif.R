@@ -18,26 +18,28 @@
 #' @importFrom stats rnorm lm as.formula complete.cases
 #'
 #' @examples
-#'\donttest{
+#' \donttest{
 #' library(vegan)
 #' data(dune)
 #' data(dune.env)
 #' AllModels <- make_models(vars = c("A1", "Moisture", "Manure"))
 #'
-#' filter_vif(all_forms = AllModels,
-#'            env_data = dune.env)
-#'}
+#' filter_vif(
+#'   all_forms = AllModels,
+#'   env_data = dune.env
+#' )
+#' }
 #' @export
 
 filter_vif <- function(all_forms,
                        env_data,
                        ncores = 2,
                        filter = TRUE,
-                       verbose = TRUE){
+                       verbose = TRUE) {
   max_vif <- x <- NULL
   meta_data <- all_forms
   meta_data$max_vif <- NA
-  if(!filter){
+  if (!filter) {
     meta_data$collinearity <- NA
   }
 
@@ -45,7 +47,7 @@ filter_vif <- function(all_forms,
   missing_rows <- !complete.cases(env_data)
 
   if (any(missing_rows)) {
-    if(verbose){
+    if (verbose) {
       # Print message about missing rows and columns
       message(sprintf("Removing %d rows with missing values\n", sum(missing_rows)))
       message("Columns with missing values: ")
@@ -60,12 +62,11 @@ filter_vif <- function(all_forms,
   doParallel::registerDoParallel(cl)
 
   Fs <- foreach(x = 1:nrow(meta_data), .packages = c("dplyr", "AICcPermanova", "stringr"), .combine = bind_rows) %dopar% {
-
-    Response = new_env_data
+    Response <- new_env_data
     Response$y <- rnorm(n = nrow(Response))
     gc()
 
-    Temp <- meta_data[x,]
+    Temp <- meta_data[x, ]
 
 
     Temp$max_vif <- tryCatch(
@@ -76,12 +77,12 @@ filter_vif <- function(all_forms,
   }
   parallel::stopCluster(cl)
 
-  if(filter){
+  if (filter) {
     Fs <- Fs |>
       dplyr::filter(max_vif < 5)
   }
 
-  if(!filter){
+  if (!filter) {
     Fs <- Fs |>
       dplyr::mutate(collinearity = ifelse(max_vif < 5, "low", "high"))
   }

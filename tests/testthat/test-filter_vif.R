@@ -8,11 +8,13 @@ test_that("filter_vif runs without errors", {
   AllModels <- make_models(vars = c("A1", "Moisture", "Manure"), ncores = 1)
 
   # Call the function
-  res <- filter_vif(all_forms = AllModels,
-                    env_data = dune.env,
-                    ncores = 1,
-                    filter = TRUE,
-                    verbose = FALSE)
+  res <- filter_vif(
+    all_forms = AllModels,
+    env_data = dune.env,
+    ncores = 1,
+    filter = TRUE,
+    verbose = FALSE
+  )
 
   # Check that the function returned a data.frame
   testthat::expect_true(is.data.frame(res))
@@ -32,11 +34,13 @@ test_that("filter_vif filters out models with high collinearity", {
   AllModels <- make_models(vars = c("x1", "x2", "x3"), ncores = 1)
 
   # Call the function with filter = TRUE
-  res <- filter_vif(all_forms = AllModels,
-                    env_data = env_data,
-                    ncores = 2,
-                    filter = TRUE,
-                    verbose = FALSE)
+  res <- filter_vif(
+    all_forms = AllModels,
+    env_data = env_data,
+    ncores = 2,
+    filter = TRUE,
+    verbose = FALSE
+  )
 
   # Check that the filtered data.frame has fewer rows than the original
   testthat::expect_true(nrow(res) < nrow(AllModels))
@@ -56,11 +60,13 @@ test_that("filter_vif flags models with high collinearity when filter = FALSE", 
   AllModels <- make_models(vars = c("x1", "x2", "x3"), ncores = 1)
 
   # Call the function with filter = FALSE
-  res <- filter_vif(all_forms = AllModels,
-                    env_data = env_data,
-                    ncores = 2,
-                    filter = FALSE,
-                    verbose = FALSE)
+  res <- filter_vif(
+    all_forms = AllModels,
+    env_data = env_data,
+    ncores = 2,
+    filter = FALSE,
+    verbose = FALSE
+  )
 
   # Check that the flagged data.frame has a column called "collinearity"
   expect_true("collinearity" %in% colnames(res))
@@ -80,8 +86,10 @@ test_that("filter_vif handles missing values correctly", {
 
 
   # Test that the function correctly handles missing values
-  testthat::expect_message(  res <- filter_vif(all_forms = AllModels,
-                                               env_data = env_data,
-                                               ncores = 2,
-                                               filter = FALSE))
+  testthat::expect_message(res <- filter_vif(
+    all_forms = AllModels,
+    env_data = env_data,
+    ncores = 2,
+    filter = FALSE
+  ))
 })
