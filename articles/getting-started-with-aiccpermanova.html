@@ -194,11 +194,11 @@ package:</p>
 dataset:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">AllModels</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_models.html">make_models</a></span><span class="op">(</span>vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A1"</span>, <span class="st">"Moisture"</span>, <span class="st">"Management"</span>, <span class="st">"Use"</span>, <span class="st">"Manure"</span><span class="op">)</span>, ncores <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 1 of 5 ready 2023-04-11 08:17:35</span></span>
-<span><span class="co">#&gt; 2 of 5 ready 2023-04-11 08:17:38</span></span>
-<span><span class="co">#&gt; 3 of 5 ready 2023-04-11 08:17:40</span></span>
-<span><span class="co">#&gt; 4 of 5 ready 2023-04-11 08:17:43</span></span>
-<span><span class="co">#&gt; 5 of 5 ready 2023-04-11 08:17:46</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 of 5 ready 2023-04-11 19:39:14</span></span>
+<span><span class="co">#&gt; 2 of 5 ready 2023-04-11 19:39:16</span></span>
+<span><span class="co">#&gt; 3 of 5 ready 2023-04-11 19:39:18</span></span>
+<span><span class="co">#&gt; 4 of 5 ready 2023-04-11 19:39:20</span></span>
+<span><span class="co">#&gt; 5 of 5 ready 2023-04-11 19:39:22</span></span></code></pre></div>
 <p>This results in 32 possible models, which are shown in the following
 table:</p>
 <table class="table">
@@ -1060,19 +1060,23 @@ function.</p>
 <thead><tr class="header">
 <th align="left">Variable</th>
 <th align="right">Full_Akaike_Adjusted_RSq</th>
+<th align="right">Number_of_models</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">A1</td>
-<td align="right">0.0487115</td>
-</tr>
-<tr class="even">
 <td align="left">Moisture</td>
 <td align="right">0.1603323</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Management</td>
+<td align="right">0.0520704</td>
+<td align="right">1</td>
 </tr>
 <tr class="odd">
-<td align="left">Management</td>
-<td align="right">NA</td>
+<td align="left">A1</td>
+<td align="right">0.0487115</td>
+<td align="right">1</td>
 </tr>
 </tbody>
 </table>
