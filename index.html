@@ -100,7 +100,12 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"AICcPermanova"</span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
-<h2 id="id_31-generating-all-possible-models">3.1 Generating all possible models<a class="anchor" aria-label="anchor" href="#id_31-generating-all-possible-models"></a>
+<h2 id="id_31-contribuiting-to-this-package">3.1 Contribuiting to this package<a class="anchor" aria-label="anchor" href="#id_31-contribuiting-to-this-package"></a>
+</h2>
+<p>Please note that this package is released with a <a href="https://ropensci.org/code-of-conduct/" class="external-link">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
+</div>
+<div class="section level2">
+<h2 id="id_32-generating-all-possible-models">3.2 Generating all possible models<a class="anchor" aria-label="anchor" href="#id_32-generating-all-possible-models"></a>
 </h2>
 <p>To generate all possible models, you can use the <code>make_models</code> function. For example:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
@@ -141,12 +146,11 @@
 <p>Where you can see all possible models for those 3 variables.</p>
 </div>
 <div class="section level2">
-<h2 id="id_32-calculating-aicc">3.2 Calculating AICc<a class="anchor" aria-label="anchor" href="#id_32-calculating-aicc"></a>
+<h2 id="id_33-calculating-aicc">3.3 Calculating AICc<a class="anchor" aria-label="anchor" href="#id_33-calculating-aicc"></a>
 </h2>
 <p>To calculate AICc, you can use the AICc_permanova2 function. Here’s an example of how to use it:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/vegandevs/vegan" class="external-link">vegan</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/vegandevs/vegan" class="external-link">vegan</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; Loading required package: permute</span></span>
 <span><span class="co">#&gt; Loading required package: lattice</span></span>
 <span><span class="co">#&gt; This is vegan 2.6-4</span></span>
@@ -155,7 +159,7 @@
 <span></span>
 <span><span class="co"># Run PERMANOVA using adonis2</span></span>
 <span></span>
-<span><span class="va">Model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/vegan/man/adonis.html" class="external-link">adonis2</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="va">Management</span><span class="op">*</span><span class="va">A1</span>, data <span class="op">=</span> <span class="va">dune.env</span><span class="op">)</span></span>
+<span><span class="va">Model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/vegan/man/adonis.html" class="external-link">adonis2</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="va">Management</span> <span class="op">*</span> <span class="va">A1</span>, data <span class="op">=</span> <span class="va">dune.env</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Calculate AICc</span></span>
 <span><span class="va">Table_permanova</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/AICc_permanova2.html">AICc_permanova2</a></span><span class="op">(</span><span class="va">Model</span><span class="op">)</span></span></code></pre></div>
@@ -177,7 +181,7 @@
 <p>In this example, we used the adonis2 function to run a PERMANOVA analysis on the dune dataset with the Management and A1 variables. We then calculated AICc using the AICc_permanova2 function</p>
 </div>
 <div class="section level2">
-<h2 id="id_33-full-example">3.3 Full example<a class="anchor" aria-label="anchor" href="#id_33-full-example"></a>
+<h2 id="id_34-full-example">3.4 Full example<a class="anchor" aria-label="anchor" href="#id_34-full-example"></a>
 </h2>
 <p>In this section, we’ll provide a complete example of the AICcPerm package workflow. First, we need to load datasets from the vegan package:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -187,11 +191,11 @@
 <p>Next, we’ll generate all possible first-order models for this dataset:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">AllModels</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/make_models.html">make_models</a></span><span class="op">(</span>vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A1"</span>, <span class="st">"Moisture"</span>, <span class="st">"Management"</span>, <span class="st">"Use"</span>, <span class="st">"Manure"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 1 of 5 ready 2023-04-10 13:28:11</span></span>
-<span><span class="co">#&gt; 2 of 5 ready 2023-04-10 13:28:15</span></span>
-<span><span class="co">#&gt; 3 of 5 ready 2023-04-10 13:28:19</span></span>
-<span><span class="co">#&gt; 4 of 5 ready 2023-04-10 13:28:23</span></span>
-<span><span class="co">#&gt; 5 of 5 ready 2023-04-10 13:28:26</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 of 5 ready 2023-04-11 04:41:31</span></span>
+<span><span class="co">#&gt; 2 of 5 ready 2023-04-11 04:41:37</span></span>
+<span><span class="co">#&gt; 3 of 5 ready 2023-04-11 04:41:43</span></span>
+<span><span class="co">#&gt; 4 of 5 ready 2023-04-11 04:41:49</span></span>
+<span><span class="co">#&gt; 5 of 5 ready 2023-04-11 04:41:52</span></span></code></pre></div>
 <p>This results in 32 possible models, which are shown in the following table:</p>
 <table class="table">
 <thead><tr class="header">
@@ -297,7 +301,7 @@
 </tbody>
 </table>
 <div class="section level3">
-<h3 id="id_331-avoiding-multicollinearity">3.3.1 Avoiding multicollinearity<a class="anchor" aria-label="anchor" href="#id_331-avoiding-multicollinearity"></a>
+<h3 id="id_341-avoiding-multicollinearity">3.4.1 Avoiding multicollinearity<a class="anchor" aria-label="anchor" href="#id_341-avoiding-multicollinearity"></a>
 </h3>
 <p>After generating all the models, it’s important to check for multicollinearity. We can use the <code>filter_vif</code> function to filter out models that have a high degree of collinearity (defined as having a maximum value of VIF of 5 or more):</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
@@ -305,15 +309,17 @@
 <p>This reduces the number of models to 21</p>
 </div>
 <div class="section level3">
-<h3 id="id_332-fittng-the-models">3.3.2 Fittng the models<a class="anchor" aria-label="anchor" href="#id_332-fittng-the-models"></a>
+<h3 id="id_342-fittng-the-models">3.4.2 Fittng the models<a class="anchor" aria-label="anchor" href="#id_342-fittng-the-models"></a>
 </h3>
 <p>After filtering out collinear models, we can fit all the remaining non-collinear models by using the <code>fit_models</code> function:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">Fitted</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fit_models.html">fit_models</a></span><span class="op">(</span>all_forms <span class="op">=</span> <span class="va">NonColinear</span>,</span>
-<span>           veg_data <span class="op">=</span> <span class="va">dune</span>,</span>
-<span>           env_data <span class="op">=</span> <span class="va">dune.env</span>,</span>
-<span>           ncores <span class="op">=</span> <span class="fl">4</span>,</span>
-<span>           method <span class="op">=</span> <span class="st">"bray"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">Fitted</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fit_models.html">fit_models</a></span><span class="op">(</span></span>
+<span>  all_forms <span class="op">=</span> <span class="va">NonColinear</span>,</span>
+<span>  veg_data <span class="op">=</span> <span class="va">dune</span>,</span>
+<span>  env_data <span class="op">=</span> <span class="va">dune.env</span>,</span>
+<span>  ncores <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>  method <span class="op">=</span> <span class="st">"bray"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p>This results in a table of fitted models ordered by AICc, which is displayed below:</p>
 <table style="width:100%;" class="table">
 <colgroup>
@@ -620,12 +626,14 @@
 </table>
 <p>If there is a block variable to be used (such as Use in the dune.env object), you can specify it using the strata argument:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">Fitted2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fit_models.html">fit_models</a></span><span class="op">(</span>all_forms <span class="op">=</span> <span class="va">NonColinear</span>,</span>
-<span>           veg_data <span class="op">=</span> <span class="va">dune</span>,</span>
-<span>           env_data <span class="op">=</span> <span class="va">dune.env</span>,</span>
-<span>           ncores <span class="op">=</span> <span class="fl">4</span>,</span>
-<span>           method <span class="op">=</span> <span class="st">"bray"</span>,</span>
-<span>           strata <span class="op">=</span> <span class="st">"Use"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">Fitted2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fit_models.html">fit_models</a></span><span class="op">(</span></span>
+<span>  all_forms <span class="op">=</span> <span class="va">NonColinear</span>,</span>
+<span>  veg_data <span class="op">=</span> <span class="va">dune</span>,</span>
+<span>  env_data <span class="op">=</span> <span class="va">dune.env</span>,</span>
+<span>  ncores <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>  method <span class="op">=</span> <span class="st">"bray"</span>,</span>
+<span>  strata <span class="op">=</span> <span class="st">"Use"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p>This results in a table of fitted models that takes into account the block variable, which is displayed below:</p>
 <table style="width:100%;" class="table">
 <colgroup>
@@ -933,7 +941,7 @@
 </div>
 </div>
 <div class="section level2">
-<h2 id="id_34-model-selection">3.4 Model Selection<a class="anchor" aria-label="anchor" href="#id_34-model-selection"></a>
+<h2 id="id_35-model-selection">3.5 Model Selection<a class="anchor" aria-label="anchor" href="#id_35-model-selection"></a>
 </h2>
 <p>To select models, we use the select_models function, which chooses models with a maximum VIF of less than 5 and a delta AICc less than a specified threshold, delta_aicc. By default, delta_aicc is set to 2.</p>
 <p>We can use the Fitted2 object generated in the previous section to select models:</p>
@@ -1024,7 +1032,7 @@
 </table>
 <p>Note that the models in the table satisfy the criteria for maximum VIF and delta AICc as specified in the <code>select_models</code> function.</p>
 <div class="section level3">
-<h3 id="id_341-summary-weighted-by-aicc">3.4.1 Summary weighted by AICc<a class="anchor" aria-label="anchor" href="#id_341-summary-weighted-by-aicc"></a>
+<h3 id="id_351-summary-weighted-by-aicc">3.5.1 Summary weighted by AICc<a class="anchor" aria-label="anchor" href="#id_351-summary-weighted-by-aicc"></a>
 </h3>
 <p>finally you can do a summarized r squared weighted by AICc using the <code>akaike_adjusted_rsq</code> function as seen bellow:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
@@ -1078,6 +1086,12 @@
 </ul>
 </div>
 
+<div class="community">
+<h2 data-toc-skip>Community</h2>
+<ul class="list-unstyled">
+<li><a href="CONTRIBUTING.html">Contributing guide</a></li>
+</ul>
+</div>
 
 <div class="citation">
 <h2 data-toc-skip>Citation</h2>

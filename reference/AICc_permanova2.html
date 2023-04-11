@@ -96,7 +96,7 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Run PERMANOVA using adonis2</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">Model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/vegan/man/adonis.html" class="external-link">adonis2</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="va">Management</span><span class="op">*</span><span class="va">A1</span>, data <span class="op">=</span> <span class="va">dune.env</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">Model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/vegan/man/adonis.html" class="external-link">adonis2</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="va">Management</span> <span class="op">*</span> <span class="va">A1</span>, data <span class="op">=</span> <span class="va">dune.env</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Calculate AICc</span></span></span>
 <span class="r-in"><span><span class="fu">AICc_permanova2</span><span class="op">(</span><span class="va">Model</span><span class="op">)</span></span></span>
