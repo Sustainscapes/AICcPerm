@@ -13,7 +13,7 @@ coverage](https://codecov.io/gh/Sustainscapes/AICcPerm/branch/master/graph/badge
 [![CRAN RStudio mirror
 downloads](https://cranlogs.r-pkg.org/badges/grand-total/AICcPermanova?color=blue)](https://r-pkg.org/pkg/AICcPermanova)
 [![CRAN RStudio mirror
-downloads](https://cranlogs.r-pkg.org/badges/last-month/AICcPermanova?color=blue)](https://r-pkg.org/pkg/AICcPermanova)”
+downloads](https://cranlogs.r-pkg.org/badges/last-month/AICcPermanova?color=blue)](https://r-pkg.org/pkg/AICcPermanova)
 [![pkgcheck](https://github.com/Sustainscapes/AICcPerm/workflows/pkgcheck/badge.svg)](https://github.com/Sustainscapes/AICcPerm/actions?query=workflow%3Apkgcheck)
 [![Project Status:
 Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
@@ -125,11 +125,11 @@ Next, we’ll generate all possible first-order models for this dataset:
 
 ``` r
 AllModels <- make_models(vars = c("A1", "Moisture", "Management", "Use", "Manure"))
-#> 1 of 5 ready 2023-04-11 04:41:31
-#> 2 of 5 ready 2023-04-11 04:41:37
-#> 3 of 5 ready 2023-04-11 04:41:43
-#> 4 of 5 ready 2023-04-11 04:41:49
-#> 5 of 5 ready 2023-04-11 04:41:52
+#> 1 of 5 ready 2023-04-11 21:32:54
+#> 2 of 5 ready 2023-04-11 21:32:58
+#> 3 of 5 ready 2023-04-11 21:33:02
+#> 4 of 5 ready 2023-04-11 21:33:07
+#> 5 of 5 ready 2023-04-11 21:33:10
 ```
 
 This results in 32 possible models, which are shown in the following
@@ -302,11 +302,11 @@ Summary <- akaike_adjusted_rsq(Selected)
 
 which results in the following table:
 
-| Variable   | Full_Akaike_Adjusted_RSq |
-|:-----------|-------------------------:|
-| A1         |                0.0487115 |
-| Moisture   |                0.1603323 |
-| Management |                       NA |
+| Variable   | Full_Akaike_Adjusted_RSq | Number_of_models |
+|:-----------|-------------------------:|-----------------:|
+| Moisture   |                0.1603323 |                1 |
+| Management |                0.0520704 |                1 |
+| A1         |                0.0487115 |                1 |
 
 # 4 Conclusion
 

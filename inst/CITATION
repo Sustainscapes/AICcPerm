@@ -1,0 +1,15 @@
+citHeader("To cite AICcPermanova in publications use:")
+
+citEntry(
+  entry       = "Manual",
+  title       = "AICcPermanova: Model Selection of PERMANOVA Models Using AICc",
+  author      = person(given = "Derek", family ="Corcoran",
+    email = "derek.corcoran.barrios@gmail.com", role = c("aut", "cre")),
+  year        = 2023,
+  note        = "Zenodo",
+  url         = "https://doi.org/10.5281/zenodo.7816863",
+  textVersion = paste(
+    "Corcoran, Derek (2023). AICcPermanova: Model Selection of PERMANOVA Models Using AICc. Zenodo. ",
+    "https://doi.org/10.5281/zenodo.7816863"
+  )
+)

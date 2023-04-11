@@ -47,13 +47,16 @@
 #' @export
 
 akaike_adjusted_rsq <- function(DF) {
-  AICc <- DeltaAICc <- max_vif <- AICWeight <- Model <- k <- N <- NULL
+  AICc <- DeltaAICc <- max_vif <- AICWeight <- Model <- k <- N <- form <- value <- Variable <- Number_of_models <- Full_Akaike_Adjusted_RSq <- NULL
   Result <- DF |>
-    dplyr::mutate_at(dplyr::vars(-dplyr::matches("form|max_vif|AICc|k|DeltaAICc|N|AICWeight")), ~ ifelse(is.na(.x), 0, .x)) |>
-    dplyr::mutate_at(dplyr::vars(-dplyr::matches("form|max_vif|AICc|k|DeltaAICc|N|AICWeight")), ~ .x * AICWeight) |>
+    dplyr::select(-AICc, -DeltaAICc, -matches("Model"), -max_vif, -k, -N) |>
+    dplyr::mutate_if(is.numeric, ~ ifelse(is.na(.x), 0, .x)) |>
+    tidyr::pivot_longer(cols = c(-form, -AICWeight), names_to = "Variable") |>
+    dplyr::mutate(Full_Akaike_Adjusted_RSq = value * AICWeight, Number_of_models = ifelse(value == 0, 0, 1)) |>
+    dplyr::group_by(Variable) |>
     dplyr::summarise_if(is.numeric, sum) |>
-    dplyr::select(-AICc, -DeltaAICc, -AICWeight, -matches("Model"), -max_vif, -k, -N) |>
-    tidyr::pivot_longer(dplyr::everything(), names_to = "Variable", values_to = "Full_Akaike_Adjusted_RSq")
+    dplyr::select(-value, -AICWeight) |>
+    dplyr::arrange(dplyr::desc(Number_of_models), dplyr::desc(Full_Akaike_Adjusted_RSq))
 
   return(Result)
 }
