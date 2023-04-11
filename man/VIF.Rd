@@ -19,6 +19,12 @@ It quantifies how much the variance of an estimated regression coefficient is in
 A VIF of 1 indicates no collinearity, while values above 1 indicate increasing levels of collinearity.
 A VIF of 5 or greater is often considered high, indicating a strong presence of collinearity.
 }
+\examples{
+
+data("mtcars")
+VIF(lm(mpg ~ ., data = mtcars))
+
+}
 \references{
 \itemize{
 \item Belsley, D. A., Kuh, E., & Welsch, R. E. (1980). Regression Diagnostics: Identifying Influential Data and Sources of Collinearity. John Wiley & Sons.
