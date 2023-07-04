@@ -85,7 +85,7 @@ fit_models <- function(all_forms,
   }
   community_data <- com_data
 
-  if(class(community_data) != "dist"){
+  if(!inherits(community_data, "dist")){
     # Check for missing values
     missing_rows <- !complete.cases(env_data)
 
@@ -104,7 +104,7 @@ fit_models <- function(all_forms,
     Distance <- vegan::vegdist(community_data, method = method)
   }
 
-  if(class(community_data) != "dist"){
+  if(inherits(community_data, "dist")){
     Distance <- community_data
   }
 
@@ -112,7 +112,7 @@ fit_models <- function(all_forms,
   doParallel::registerDoParallel(cl)
 
 
-  Fs <- foreach(x = 1:nrow(meta_data), .packages = c("vegan", "dplyr", "AICcPermanova", "tidyr", "broom"), .combine = bind_rows, .export = c("Distance")) %dopar% {
+  Fs <- foreach(x = 1:nrow(meta_data), .packages = c("vegan", "dplyr", "AICcPermanova", "tidyr", "broom"), .combine = bind_rows, .export = c("Distance", "env_data")) %dopar% {
 
     Response <- env_data
     Response$y <- rnorm(n = nrow(Response))
