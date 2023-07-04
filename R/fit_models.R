@@ -171,6 +171,7 @@ fit_models <- function(all_forms,
 
     Temp <- dplyr::bind_cols(Temp, Rs)
     sink(logfile, append = TRUE)
+    sink()
     Temp
   }
   parallel::stopCluster(cl)
