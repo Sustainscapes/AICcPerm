@@ -194,11 +194,11 @@ package:</p>
 dataset:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">AllModels</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_models.html">make_models</a></span><span class="op">(</span>vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A1"</span>, <span class="st">"Moisture"</span>, <span class="st">"Management"</span>, <span class="st">"Use"</span>, <span class="st">"Manure"</span><span class="op">)</span>, ncores <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 1 of 5 ready 2023-04-11 19:39:14</span></span>
-<span><span class="co">#&gt; 2 of 5 ready 2023-04-11 19:39:16</span></span>
-<span><span class="co">#&gt; 3 of 5 ready 2023-04-11 19:39:18</span></span>
-<span><span class="co">#&gt; 4 of 5 ready 2023-04-11 19:39:20</span></span>
-<span><span class="co">#&gt; 5 of 5 ready 2023-04-11 19:39:22</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 of 5 ready 2023-07-04 18:06:09.040488</span></span>
+<span><span class="co">#&gt; 2 of 5 ready 2023-07-04 18:06:10.79292</span></span>
+<span><span class="co">#&gt; 3 of 5 ready 2023-07-04 18:06:12.544697</span></span>
+<span><span class="co">#&gt; 4 of 5 ready 2023-07-04 18:06:14.288938</span></span>
+<span><span class="co">#&gt; 5 of 5 ready 2023-07-04 18:06:16.052689</span></span></code></pre></div>
 <p>This results in 32 possible models, which are shown in the following
 table:</p>
 <table class="table">
@@ -324,11 +324,13 @@ non-collinear models by using the <code>fit_models</code> function:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Fitted</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fit_models.html">fit_models</a></span><span class="op">(</span></span>
 <span>  all_forms <span class="op">=</span> <span class="va">NonColinear</span>,</span>
-<span>  veg_data <span class="op">=</span> <span class="va">dune</span>,</span>
+<span>  com_data <span class="op">=</span> <span class="va">dune</span>,</span>
 <span>  env_data <span class="op">=</span> <span class="va">dune.env</span>,</span>
 <span>  ncores <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  method <span class="op">=</span> <span class="st">"bray"</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in e$fun(obj, substitute(ex), parent.frame(), e$data): already</span></span>
+<span><span class="co">#&gt; exporting variable(s): env_data</span></span></code></pre></div>
 <p>This results in a table of fitted models ordered by AICc, which is
 displayed below:</p>
 <table style="width:100%;" class="table">
@@ -639,12 +641,14 @@ object), you can specify it using the strata argument:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Fitted2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fit_models.html">fit_models</a></span><span class="op">(</span></span>
 <span>  all_forms <span class="op">=</span> <span class="va">NonColinear</span>,</span>
-<span>  veg_data <span class="op">=</span> <span class="va">dune</span>,</span>
+<span>  com_data <span class="op">=</span> <span class="va">dune</span>,</span>
 <span>  env_data <span class="op">=</span> <span class="va">dune.env</span>,</span>
 <span>  ncores <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  method <span class="op">=</span> <span class="st">"bray"</span>,</span>
 <span>  strata <span class="op">=</span> <span class="st">"Use"</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in e$fun(obj, substitute(ex), parent.frame(), e$data): already</span></span>
+<span><span class="co">#&gt; exporting variable(s): env_data</span></span></code></pre></div>
 <p>This results in a table of fitted models that takes into account the
 block variable, which is displayed below:</p>
 <table style="width:100%;" class="table">
