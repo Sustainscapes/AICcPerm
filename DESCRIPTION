@@ -15,7 +15,7 @@ Description: Provides tools for model selection and model averaging of PerMANOVA
     (<doi:10.1007/b97636>).
 License: MIT + file LICENSE
 Encoding: UTF-8
-Roxygen: list(markdown = TRUE)
+Roxygen: list(markdown = TRUE, roclets = c ("namespace", "rd"))
 RoxygenNote: 7.2.3
 Imports: 
     broom,
@@ -35,6 +35,7 @@ URL: https://github.com/Sustainscapes/AICcPerm,
     https://sustainscapes.github.io/AICcPerm/
 BugReports: https://github.com/Sustainscapes/AICcPerm/issues
 Suggests: 
+    betapart,
     covr,
     knitr,
     rmarkdown,
