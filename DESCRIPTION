@@ -15,7 +15,7 @@ Description: Provides tools for model selection and model averaging of PerMANOVA
     (<doi:10.1007/b97636>).
 License: MIT + file LICENSE
 Encoding: UTF-8
-Roxygen: list(markdown = TRUE)
+Roxygen: list(markdown = TRUE, roclets = c ("namespace", "rd", "srr::srr_stats_roclet"))
 RoxygenNote: 7.2.3
 Imports: 
     broom,
@@ -41,3 +41,5 @@ Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 VignetteBuilder: knitr
+Enhances: 
+    betapart

@@ -116,7 +116,7 @@ After filtering out collinear models, we can fit all the remaining non-collinear
 ```{r}
 Fitted <- fit_models(
   all_forms = NonColinear,
-  veg_data = dune,
+  com_data = dune,
   env_data = dune.env,
   ncores = 1,
   method = "bray"
@@ -134,7 +134,7 @@ If there is a block variable to be used (such as Use in the dune.env object), yo
 ```{r fitwihtstrata}
 Fitted2 <- fit_models(
   all_forms = NonColinear,
-  veg_data = dune,
+  com_data = dune,
   env_data = dune.env,
   ncores = 1,
   method = "bray",
